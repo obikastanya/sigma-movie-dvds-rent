@@ -15,4 +15,9 @@ class MovieDvds(db.Model):
     mvd_create_user = db.Column(db.String(30))
     mvd_update_date = db.Column(db.Date())
     mvd_update_user = db.Column(db.String(30))
+
+    movie_dvds_movie_reviews=db.relationship('MovieReviews', backref='movie_dvds_movie_reviews')
+    movie_dvds_movie_returned_detail=db.relationship('MovieReturnedDetail', backref='movie_dvds_movie_returned_detail')
+    movie_dvds_movie_renter_detail=db.relationship('MovieRenterDetail', backref='movie_dvds_movie_renter_detail')
+    
     

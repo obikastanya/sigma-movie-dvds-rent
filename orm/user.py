@@ -15,5 +15,11 @@ class User(db.Model):
     msu_update_date = db.Column(db.Date())
     msu_update_user = db.Column(db.String(30))
     
+    # relation with user
+    user_user_on_ban=db.relationship('UserOnBan', backref='user_user_on_ban')
+    user_movie_reviews=db.relationship('MovieReviews', backref='user_movie_reviews')
+    user_movie_renter_head=db.relationship('MovieRenterHead', backref='user_movie_renter_head')
+    
+
 class UserSchema():
     pass

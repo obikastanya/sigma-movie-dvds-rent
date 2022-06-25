@@ -2,8 +2,10 @@ from app import db
 
 class MoviewReviews(db.Model):
     __tablename__='movie_reviews'
-    mr_mvd_id =db.Column(db.Integer(), nullable=False, primary_key=True)
-    mr_msu_id =db.Column(db.Integer(), nullable=False)
+    # __table_args__=(db.PrimaryKeyConstraint('mr_mvd_id','mr_msu_id'),)
+    
+    mr_mvd_id =db.Column(db.Integer(),db.ForeignKey('ms_movie_dvds.mvd_id'), nullable=False, primary_key=True)
+    mr_msu_id =db.Column(db.Integer(),db.ForeignKey('ms_user.msu_id'), nullable=False,primary_key=True)
     mr_desc =db.Column(db.String(500))
     mr_rate =db.Column(db.Integer(), nullable=False)
     mr_active_status =db.Column(db.String(1), nullable=False)

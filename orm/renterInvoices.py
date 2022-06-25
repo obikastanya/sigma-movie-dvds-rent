@@ -3,7 +3,7 @@ from app import db
 class RenterInvoices(db.Model):
     __tablename__='renter_invoices'
     ri_id =db.Column(db.Integer(), nullable=False, primary_key=True)
-    ri_mrth_id =db.Column(db.Integer(), nullable=False)
+    ri_mrth_id =db.Column(db.ForeignKey('movie_renter_head.mrth_id'), nullable=False)
     ri_nominal =db.Column(db.Integer(), nullable=False)
     ri_status_bayar =db.Column(db.String(1), nullable=False)
     ri_bukti_bayar  = db.Column(db.String(200))
