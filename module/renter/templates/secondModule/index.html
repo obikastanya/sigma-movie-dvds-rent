@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+<h1>Second module Page</h1>
+{% endblock content %}
+
+
+
+
+{% block customBottomScripts %}
+<script src={{ url_for('second_module_bp.static', filename='js/index.js') }}></script>
+
+{% endblock customBottomScripts %}
