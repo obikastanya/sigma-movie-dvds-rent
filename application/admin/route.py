@@ -1,6 +1,8 @@
 import re
 from flask import Blueprint, render_template
 from .controllers.adminController import AdminController
+from .controllers.movieDvdsController import MovieDvdsController
+from .controllers.userController import UserController
 
 admin_bp=Blueprint(
     'admin_bp', 
@@ -18,24 +20,24 @@ def home():
 # --- admin
 @admin_bp.get('/index')
 def getAdmins():
-    return AdminController().getAdmins()
+    return AdminController.getAdmins()
 
 @admin_bp.post('/index')
 def insertAdmin():
-    return AdminController().insertAdmin()
+    return AdminController.insertAdmin()
 
 @admin_bp.put('/index')
 def updateAdmin():
-    return AdminController().updateAdmin()
+    return AdminController.updateAdmin()
 
 @admin_bp.delete('/index')
 def softDeleteAdmin():
-    return AdminController().softDeleteAdmin()
+    return AdminController.softDeleteAdmin()
 
 # --- user
 @admin_bp.get('/user')
 def getUsers():
-    pass
+    UserController.banUser()
 
 @admin_bp.put('/user/ban')
 def banUser():
@@ -49,19 +51,23 @@ def releaseUserBan():
 
 @admin_bp.get('/dvd')
 def getDvds():
-    pass
+    return MovieDvdsController.getMovieDvds()
 
 @admin_bp.get('/dvd/<id>')
 def getDvd(id):
-    pass
+    return MovieDvdsController.getMovieDvd(id)
 
 @admin_bp.put('/dvd')
 def updateDvd():
-    pass
+    return MovieDvdsController.updateMovieDvd()
 
 @admin_bp.delete('/dvd')
-def sofDeleteDvd():
-    pass
+def softDeleteDvd():
+        return MovieDvdsController.softDeleteMovieDvd()
+
+@admin_bp.post('/dvd')
+def insertDvd():
+        return MovieDvdsController.insertMovieDvd()
 
 # mail
 

@@ -1,39 +1,36 @@
 from flask import request
+import bcrypt
 from orm.admin import Admin, AdminSchema
 from lib.response import Resp
+from lib.parameterValidation import ParameterValidation
 from app import db
-import bcrypt
+
 
 class AdminController:
-    def __init__(self) -> None:
-        self.model=Admin
-        self.schema=AdminSchema
-
-
-    def getAdmins(self):
-        data=self.model.query.all()
-        jsonData=self.schema(many=True).dump(data)
+    def getAdmins():
+        data=Admin.query.all()
+        jsonData=AdminSchema(many=True).dump(data)
         return Resp.make(status=True, data=jsonData)
 
-    def insertAdmin(self):
+    def insertAdmin():
         try:
             parameter=AdminParameterHandler.getInsertParameter()
             if not ParameterValidation.cantBeEmpty(parameter):
                 return Resp.withoutData('Invalid parameter.')
-            newAdmin=self.model(**parameter)
+            newAdmin=Admin(**parameter)
             db.session.add(newAdmin)
             db.session.commit()
             return Resp.withoutData(status=True, message='Admin succesfully added')
         except:
             return Resp.withoutData(status=True, message='Insert Failed')
 
-    def updateAdmin(self):
+    def updateAdmin():
         try:
             parameter=AdminParameterHandler.getUpdateParameter()
             if not ParameterValidation.certainKeyShouldExist(['msa_active_status','msa_id'],parameter):
                 return Resp.withoutData('Invalid parameter.')
             
-            admin=self.model.query.filter_by(msa_id=parameter.get('msa_id')).first()
+            admin=Admin.query.filter_by(msa_id=parameter.get('msa_id')).first()
             if not admin:
                 return Resp.withoutData('Admin is not found')
             
@@ -46,13 +43,13 @@ class AdminController:
             return Resp.withoutData(status=True, message='Update Failed')
 
 
-    def softDeleteAdmin(self):
+    def softDeleteAdmin():
         try:
             parameter=AdminParameterHandler.getUpdateParameter()
             if not ParameterValidation.certainKeyShouldExist(['msa_active_status','msa_id'],parameter):
                 return Resp.withoutData('Invalid parameter.')
             
-            admin=self.model.query.filter_by(msa_id=parameter.get('msa_id')).first()
+            admin=Admin.query.filter_by(msa_id=parameter.get('msa_id')).first()
             if not admin:
                 return Resp.withoutData('Admin is not found')
             admin.msa_active_status=parameter.get('msa_active_status')
@@ -86,17 +83,3 @@ class AdminParameterHandler:
             'msa_id':request.json.get('id'),
             'msa_active_status': 'N'  
         }
-    
-
-class ParameterValidation():
-    def cantBeEmpty(parameter):
-        for value in parameter.values():
-            if not value:
-                return False
-        return True    
-    
-    def certainKeyShouldExist(keys, parameter):
-        for key in keys:
-            if not parameter.get(key):
-                return False
-        return True
