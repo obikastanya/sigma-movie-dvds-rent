@@ -15,3 +15,5 @@ class User(db.Model):
     msu_update_date = db.Column(db.Date())
     msu_update_user = db.Column(db.String(30))
     
+class UserSchema():
+    pass
