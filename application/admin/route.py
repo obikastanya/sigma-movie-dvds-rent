@@ -1,4 +1,3 @@
-import re
 from flask import Blueprint, render_template
 from .controllers.adminController import AdminController
 from .controllers.movieDvdsController import MovieDvdsController
