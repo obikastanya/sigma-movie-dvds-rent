@@ -17,15 +17,18 @@ def loginPage():
 
 @admin_bp.get('/home')
 def homePage():
-    return render_template('homeAdmin.html')
+    return render_template('dvdRenter.html')
 
+
+
+# api
+# ---login
 
 @admin_bp.post('/login')
 def cekLogin():
     return LoginController.login()
 
 
-# api
 # --- admin
 @admin_bp.get('/index')
 def getAdmins():

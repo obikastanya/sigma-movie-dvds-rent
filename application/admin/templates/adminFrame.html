@@ -15,7 +15,7 @@
   >
     <a
       class="sidebar-brand d-flex align-items-center justify-content-center"
-      href="/"
+      href="/admin/home"
     >
       <div class="sidebar-brand-icon rotate-n-15">
         <i class="fas fas fa-solid fa-film"></i>
@@ -24,41 +24,42 @@
     </a>
     <hr class="sidebar-divider my-0" />
     <hr class="sidebar-divider" />
-    <div class="sidebar-heading">Store Menu</div>
+    <div class="sidebar-heading">Menu</div>
+    
     <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/product-sold">
-        <i class="fas fa-solid fa-folder"></i>
-        <span>Master Movie DVD</span>
-      </a>
-    </li>
-    <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/product-sold">
-        <i class="fas fa-solid fa-folder"></i>
-        <span>Master Admin</span>
-      </a>
-    </li>
-    <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/product-sold">
-        <i class="fas fa-solid fa-folder"></i>
-        <span>Master User</span>
-      </a>
-    </li>
-    <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/product-sold">
+      <a class="nav-link collapsed" href="/dvd-renter">
         <i class="fas fa-solid fa-folder"></i>
         <span>DVD Renter</span>
       </a>
     </li>
     <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/product-sold">
+      <a class="nav-link collapsed" href="/dvd-returned">
         <i class="fas fa-solid fa-folder"></i>
         <span>DVD Returned</span>
       </a>
     </li>
     <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/product-sold">
+      <a class="nav-link collapsed" href="/invoices">
         <i class="fas fa-solid fa-folder"></i>
         <span>Invoices</span>
+      </a>
+    </li>
+    <li class="nav-item" id="sold_product_side_link">
+      <a class="nav-link collapsed" href="/admin/movie-dvd">
+        <i class="fas fa-solid fa-folder"></i>
+        <span>Master Movie DVD</span>
+      </a>
+    </li>
+    <li class="nav-item" id="sold_product_side_link">
+      <a class="nav-link collapsed" href="/index">
+        <i class="fas fa-solid fa-folder"></i>
+        <span>Master Admin</span>
+      </a>
+    </li>
+    <li class="nav-item" id="sold_product_side_link">
+      <a class="nav-link collapsed" href="/user">
+        <i class="fas fa-solid fa-folder"></i>
+        <span>Master User</span>
       </a>
     </li>
     <hr class="sidebar-divider d-none d-md-block" />
@@ -131,7 +132,7 @@
         </ul>
       </nav>
       <div class="container-fluid">
-        <h1>Content</h1>
+      {% block adminContent %} {% endblock adminContent %}
       </div>
     </div>
     <!-- End of Main Content -->
@@ -139,7 +140,7 @@
     <footer class="sticky-footer bg-white">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Obi Kastanya 2021</span>
+          <span>Copyright &copy; Sigmatech 2021</span>
         </div>
       </div>
     </footer>
