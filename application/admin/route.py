@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template,session, redirect, url_for
 from .controllers.adminController import AdminController
 from .controllers.movieDvdsController import MovieDvdsController
 from .controllers.userController import UserController
-from .controllers.loginController import LoginController
+from .controllers.loginController import LoginController, pullNotif
 
 admin_bp=Blueprint(
     'admin_bp', 
@@ -14,14 +14,21 @@ auth=LoginController()
 # route
 @admin_bp.get('/login')
 @auth.noSessionRequiredPage
-def loginPage():
-    return render_template('loginAdmin.html')
+def loginPage(**kwargs):
+    message=pullNotif()
+    
+    return render_template('loginAdmin.html', message=message)
 
 @admin_bp.get('/home')
 @auth.loginRequiredPage
-def homePage():
+def homePage(**kwargs):
     return render_template('dvdRenter.html')
 
+@admin_bp.get('/logout')
+@auth.loginRequiredPage
+def logout(**kwargs):
+    session.clear()
+    return redirect(url_for('admin_bp.loginPage'))
 
 
 # api

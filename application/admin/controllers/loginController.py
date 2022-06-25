@@ -1,28 +1,36 @@
-from asyncio import constants
-from email import message
 from flask import request, render_template,redirect, url_for, session
 from functools import wraps
 import bcrypt
 from orm.admin import Admin 
 from lib.response import Resp
 
+def pullNotif():
+    message=session.get('message')
+    session['message']=''
+    return message
+
 class LoginController:
     def login(self):
         try:
             adminLogin=dict(request.form)
             admin=Admin.query.filter_by(msa_email='obi@gmail.com').first()
+            # default error message
             if not admin:
-                return render_template('loginAdmin.html', message='Incorrect email or password')
+                session['message']='Incorrect email or password'
+                return redirect(url_for('admin_bp.loginPage'))       
 
             if  bcrypt.checkpw(adminLogin.get('password').encode('utf-8'), admin.msa_password.encode('utf-8')):
+                # success login
                 self.createSession(admin)
-                return redirect(url_for('admin_bp.homePage'))
-            return render_template('loginAdmin.html', message='Incorrect email or password')       
-        except:
-            return render_template('loginAdmin.html', message='Login Failed')
+                return redirect(url_for('admin_bp.homePage')) 
 
+            session['message']='Incorrect email or password'
+            return redirect(url_for('admin_bp.loginPage'))       
+        except:
+            session['message']='Login Failed'
+            return redirect(url_for('admin_bp.loginPage')) 
+            
     def createSession(self,admin):
-        print(admin)
         session['admin_id']=admin.msa_id
         session['admin_name']=admin.msa_name
 
@@ -41,11 +49,13 @@ class LoginController:
         @wraps(func)
         def decorated(**kwargs):
             try:
-                print(session)
+                print('session data',session)
                 if not session.get('admin_id'):
-                    return render_template('loginAdmin.html', message='You need to login first')
+                    session['message']='You need to login first'
+                    return redirect(url_for('admin_bp.loginPage')) 
             except:
-                return render_template('loginAdmin.html', message='Bad Request')
+                session['message']='Bad Request'
+                return redirect(url_for('admin_bp.loginPage'))
             return func(**kwargs)
         return decorated
     
