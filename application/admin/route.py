@@ -1,6 +1,6 @@
 import re
 from flask import Blueprint, render_template
-from .controller import AdminController
+from .controllers.adminController import AdminController
 
 admin_bp=Blueprint(
     'admin_bp', 

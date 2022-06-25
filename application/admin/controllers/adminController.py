@@ -1,4 +1,3 @@
-import re
 from flask import request
 from orm.admin import Admin, AdminSchema
 from lib.response import Resp
