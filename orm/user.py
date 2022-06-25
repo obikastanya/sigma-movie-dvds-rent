@@ -13,5 +13,5 @@ class User(db.Model):
     msu_create_date  = db.Column(db.Date())
     msu_create_user = db.Column(db.String(30))
     msu_update_date = db.Column(db.Date())
-    msu_update_user = db.Column(db.String(30)),
+    msu_update_user = db.Column(db.String(30))
     
