@@ -3,6 +3,7 @@ from flask import Blueprint, render_template
 from .controllers.adminController import AdminController
 from .controllers.movieDvdsController import MovieDvdsController
 from .controllers.userController import UserController
+from .controllers.loginController import LoginController
 
 admin_bp=Blueprint(
     'admin_bp', 
@@ -11,9 +12,18 @@ admin_bp=Blueprint(
     static_folder='static')
 
 # route
-@admin_bp.get('/')
-def home():
-    return render_template('admHome.html')
+@admin_bp.get('/login')
+def loginPage():
+    return render_template('loginAdmin.html')
+
+@admin_bp.get('/home')
+def homePage():
+    return render_template('homeAdmin.html')
+
+
+@admin_bp.post('/login')
+def cekLogin():
+    return LoginController.login()
 
 
 # api

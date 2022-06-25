@@ -1,0 +1,70 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container">
+  <!-- Outer Row -->
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-sm-12">
+              {% if message %}
+              <div
+                class="alert alert-danger alert-dismissible fade show"
+                role="alert"
+              >
+                {{message}}
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="alert"
+                  aria-label="Close"
+                ></button>
+              </div>
+              {% endif %}
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">
+                    Sigma Movie - Admin Panel
+                  </h1>
+                </div>
+                <form target="/admin/login" method="POST">
+                  <div class="mb-3">
+                    <label for="emailField" class="form-label"
+                      >Email address</label
+                    >
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="emailField"
+                      name="email"
+                      placeholder="email"
+                      required
+                      aria-describedby="emailHelp"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label for="passwordField" class="form-label"
+                      >Password</label
+                    >
+                    <input
+                      type="password"
+                      class="form-control"
+                      name="password"
+                      placeholder="password"
+                      required
+                      id="passwordField"
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <hr />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %} {% block customBottomScripts %} {% endblock
+customBottomScripts %}
