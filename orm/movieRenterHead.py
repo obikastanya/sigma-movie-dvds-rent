@@ -1,6 +1,6 @@
 from app import db
 
-class MoviewRenterHead(db.Model):
+class MovieRenterHead(db.Model):
     __tablename__='movie_renter_head'
     mrth_id =db.Column(db.Integer(),  primary_key=True,nullable=False)
     mrth_msu_id =db.Column(db.Integer(), db.ForeignKey('ms_user.msu_id'), nullable=False)

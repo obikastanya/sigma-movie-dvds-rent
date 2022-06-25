@@ -22,15 +22,15 @@ def getAdmins():
 
 @admin_bp.post('/index')
 def insertAdmin():
-    pass
+    return AdminController().insertAdmin()
 
 @admin_bp.put('/index')
 def updateAdmin():
-    pass
+    return AdminController().updateAdmin()
 
 @admin_bp.delete('/index')
 def softDeleteAdmin():
-    pass
+    return AdminController().softDeleteAdmin()
 
 # --- user
 @admin_bp.get('/user')

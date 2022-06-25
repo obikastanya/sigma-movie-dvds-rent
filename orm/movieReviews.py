@@ -1,6 +1,6 @@
 from app import db
 
-class MoviewReviews(db.Model):
+class MovieReviews(db.Model):
     __tablename__='movie_reviews'
     # __table_args__=(db.PrimaryKeyConstraint('mr_mvd_id','mr_msu_id'),)
     
