@@ -10,12 +10,15 @@ admin_bp=Blueprint(
     template_folder='templates', 
     static_folder='static')
 
+auth=LoginController()
 # route
 @admin_bp.get('/login')
+@auth.noSessionRequiredPage
 def loginPage():
     return render_template('loginAdmin.html')
 
 @admin_bp.get('/home')
+@auth.loginRequiredPage
 def homePage():
     return render_template('dvdRenter.html')
 
@@ -26,7 +29,7 @@ def homePage():
 
 @admin_bp.post('/login')
 def cekLogin():
-    return LoginController.login()
+    return LoginController().login()
 
 
 # --- admin
