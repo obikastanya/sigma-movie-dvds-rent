@@ -19,6 +19,14 @@ class AdminController:
         jsonData=AdminSchema(many=True).dump(data)
         resp=Resp.make(data=jsonData,status=True)
         return resp
+    
+
+    def getAdmin(id):
+        data=Admin.query.filter_by(msa_id=id).first()
+        if not data:
+            return Resp.make(status=False, message='Movie is not found')
+        jsonData=AdminSchema(many=True).dump([data])
+        return Resp.make(status=True, data=jsonData)
 
     def insertAdmin():
         try:
@@ -35,13 +43,15 @@ class AdminController:
     def updateAdmin():
         try:
             parameter=AdminParameterHandler.getUpdateParameter()
+            print(parameter)
             if not ParameterValidation.certainKeyShouldExist(['msa_active_status','msa_id'],parameter):
                 return Resp.withoutData('Invalid parameter.')
             
             admin=Admin.query.filter_by(msa_id=parameter.get('msa_id')).first()
             if not admin:
                 return Resp.withoutData('Admin is not found')
-            
+            if parameter.get('msa_password'):
+                admin.msa_password=parameter.get('msa_password')
             admin.msa_email=parameter.get('msa_email')
             admin.msa_name=parameter.get('msa_name')
             admin.msa_active_status=parameter.get('msa_active_status')
@@ -85,16 +95,22 @@ class AdminParameterHandler:
             'msa_email':request.json.get('email'),
             'msa_password':hashedPassword, 
             'msa_name':request.json.get('name'),
-            'msa_active_status': request.json.get('active_status')  
+            'msa_active_status': request.json.get('active_status','Y')  
         }
 
     def getUpdateParameter():
-        return {
+        parameter= {
             'msa_id':request.json.get('id'),
             'msa_email':request.json.get('email'),
             'msa_name':request.json.get('name'),
-            'msa_active_status': request.json.get('active_status')  
+            'msa_active_status': request.json.get('active_status',"Y"),
+              
         }
+        if(request.json.get('password')):
+            hashedPassword=bcrypt.hashpw(request.json.get('password').encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+            parameter.update({'msa_password':hashedPassword})
+        return parameter 
+        
     
     def getDeleteParameter():
         return{

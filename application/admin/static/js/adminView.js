@@ -5,27 +5,18 @@ class TableAction {
     this.addData = this.addData.bind(this);
   }
   editData(event) {
-    let idMovie = event.target.getAttribute("data-id");
-    fetch("/admin/dvd/" + idMovie)
+    let id = event.target.getAttribute("data-id");
+    fetch("/admin/index/" + id)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-        let movie = response.data[0];
+        let admin = response.data[0];
         let setValue = (id, value) => {
           let element = document.getElementById(id);
-          console.log(element);
           element.value = value;
         };
-        setValue("idFieldUpd", movie.id);
-        setValue("ageFieldUpd", movie.age_certification);
-        setValue("totalDvdFieldUpd", movie.available_stock);
-        setValue("descFieldUpd", movie.desc);
-        setValue("genreFieldUpd", movie.genre);
-        setValue("releaseDateFieldUpd", movie.release_date);
-        setValue("titleFieldUpd", movie.title);
-        setValue("totalDvdFieldUpd", movie.total_dvds);
-        document.getElementById("updateImgPreview").innerHTML = `
-        <img src='/${movie.image_path}' alt="Poster" width="200" />`;
+        setValue("idFieldUpd", admin.id);
+        setValue("nameFieldUpd", admin.name);
+        setValue("emailFieldUpd", admin.email);
         $("#id_modal_for_edit").modal("show");
       });
   }
@@ -42,7 +33,7 @@ class TableAction {
       .then((response) => response.json())
       .then((response) => {
         if (response.status) {
-          $("#movie_dvd_datatable_id").DataTable().ajax.reload();
+          $("#admin_datatable_id").DataTable().ajax.reload();
         }
         alert(response.message);
       });
@@ -72,59 +63,25 @@ class ApiAction {
     let getValue = (id) => document.getElementById(id).value;
     let parameter = {
       active_status: "Y",
-      age_certification: getValue("ageField"),
-      available_stock: getValue("totalDvdField"),
-      desc: getValue("descField"),
-      genre: getValue("genreField"),
-      image_path: "/",
-      release_date: getValue("releaseDateField"),
-      title: getValue("titleField"),
-      total_dvds: getValue("totalDvdField"),
+      name: getValue("nameField"),
+      password: getValue("passwordField"),
+      email: getValue("emailField"),
     };
-    const selectedFile = document.getElementById("posterField").files[0];
-    if (!selectedFile) {
-      alert("No image found");
-      return;
-    }
-    this.uploadFile(selectedFile).then((response) => {
-      if (response.status) {
-        parameter.image_path = response.data[0].filename;
-        return this.saveDvdData(parameter);
-      }
-      alert(response.message);
-    });
+    return this.saveAdminData(parameter);
   }
   updateData() {
     let getValue = (id) => document.getElementById(id).value;
     let parameter = {
       active_status: "Y",
+      name: getValue("nameFieldUpd"),
+      password: getValue("passwordFieldUpd"),
+      email: getValue("emailFieldUpd"),
       id: getValue("idFieldUpd"),
-      age_certification: getValue("ageFieldUpd"),
-      available_stock: getValue("totalDvdFieldUpd"),
-      desc: getValue("descFieldUpd"),
-      genre: getValue("genreFieldUpd"),
-      image_path: getValue("posterPathFieldUpd"),
-      release_date: getValue("releaseDateFieldUpd"),
-      title: getValue("titleFieldUpd"),
-      total_dvds: getValue("totalDvdFieldUpd"),
     };
-    const selectedFile = document.getElementById("posterField").files[0];
-    if (selectedFile) {
-      this.uploadUpdateFile(selectedFile).then((response) => {
-        if (response.status) {
-          parameter.image_path = response.data[0].filename;
-          return this.updateDvdData(parameter);
-        }
-        alert(response.message);
-      });
-
-      return;
-    } else {
-      return this.updateDvdData(parameter);
-    }
+    return this.updateAdminData(parameter);
   }
-  saveDvdData(parameter) {
-    fetch("/admin/dvd", {
+  saveAdminData(parameter) {
+    fetch("/admin/index", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,20 +90,12 @@ class ApiAction {
     })
       .then((response) => response.json())
       .then((response) => {
-        $("#movie_dvd_datatable_id").DataTable().ajax.reload();
+        $("#admin_datatable_id").DataTable().ajax.reload();
         alert(response.message);
       });
   }
-  async uploadFile(file) {
-    let formData = new FormData();
-    formData.append("file", file);
-    return await fetch("/admin/dvd/upload", {
-      method: "POST",
-      body: formData,
-    }).then((response) => response.json());
-  }
-  updateDvdData(parameter) {
-    fetch("/admin/dvd", {
+  updateAdminData(parameter) {
+    fetch("/admin/index", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -155,23 +104,15 @@ class ApiAction {
     })
       .then((response) => response.json())
       .then((response) => {
-        $("#movie_dvd_datatable_id").DataTable().ajax.reload();
+        $("#admin_datatable_id").DataTable().ajax.reload();
         alert(response.message);
       });
-  }
-  async uploadUpdateFile(file) {
-    let formData = new FormData();
-    formData.append("file", file);
-    return await fetch("/admin/dvd/upload", {
-      method: "POST",
-      body: formData,
-    }).then((response) => response.json());
   }
 }
 
 class DatatabaleMovie {
   render() {
-    const datatable = $("#movie_dvd_datatable_id").DataTable({
+    const datatable = $("#admin_datatable_id").DataTable({
       processing: true,
       serverSide: true,
       ajax: {
@@ -231,7 +172,7 @@ class FormFilter {
   registerEvent() {
     let buttonFilter = document.getElementById("filterButtonId");
     buttonFilter.addEventListener("click", function (event) {
-      $("#movie_dvd_datatable_id").DataTable().ajax.reload();
+      $("#admin_datatable_id").DataTable().ajax.reload();
     });
   }
 }

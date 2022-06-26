@@ -56,6 +56,11 @@ def cekLogin():
 def getAdmins():
     return AdminController.getAdmins()
 
+@admin_bp.get('/index/<id>')
+def getAdmin(id):
+    return AdminController.getAdmin(id)
+
+
 @admin_bp.post('/index')
 def insertAdmin():
     return AdminController.insertAdmin()
