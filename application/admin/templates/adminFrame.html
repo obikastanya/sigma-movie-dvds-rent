@@ -1,11 +1,16 @@
+
+
 {% extends 'base.html' %} {% block customCSS %}
+<link href={{ url_for('admin_bp.static', filename='datatable-jquery/dataTables.bootstrap5.min.css')}} rel="stylesheet" />
+<link href={{ url_for('admin_bp.static', filename='theme/css/sb-admin-2.min.css')}} rel="stylesheet" />
+
 <link
   href="static/theme/vendor/fontawesome-free/css/all.min.css"
   rel="stylesheet"
   type="text/css"
 />
-<link href={{ url_for('admin_bp.static', filename='/theme/css/font.css')}} rel="stylesheet" />
-<link href={{ url_for('admin_bp.static', filename='/theme/css/sb-admin-2.min.css')}} rel="stylesheet" />
+<link href={{ url_for('admin_bp.static', filename='theme/css/font.css')}} rel="stylesheet" />
+<link href={{ url_for('admin_bp.static', filename='theme/css/sb-admin-2.min.css')}} rel="stylesheet" />
 
 {% endblock customCSS %} {% block content %}
 <div id="wrapper">
@@ -27,19 +32,19 @@
     <div class="sidebar-heading">Menu</div>
     
     <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/dvd-renter">
+      <a class="nav-link collapsed" href="/admin/dvd-renter">
         <i class="fas fa-solid fa-folder"></i>
         <span>DVD Renter</span>
       </a>
     </li>
     <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/dvd-returned">
+      <a class="nav-link collapsed" href="/admin/dvd-returned">
         <i class="fas fa-solid fa-folder"></i>
         <span>DVD Returned</span>
       </a>
     </li>
     <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/invoices">
+      <a class="nav-link collapsed" href="/admin/invoices">
         <i class="fas fa-solid fa-folder"></i>
         <span>Invoices</span>
       </a>
@@ -51,13 +56,13 @@
       </a>
     </li>
     <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/index">
+      <a class="nav-link collapsed" href="/admin/index">
         <i class="fas fa-solid fa-folder"></i>
         <span>Master Admin</span>
       </a>
     </li>
     <li class="nav-item" id="sold_product_side_link">
-      <a class="nav-link collapsed" href="/user">
+      <a class="nav-link collapsed" href="/admin/user">
         <i class="fas fa-solid fa-folder"></i>
         <span>Master User</span>
       </a>
@@ -138,15 +143,25 @@
     <footer class="sticky-footer bg-white">
       <div class="container my-auto">
         <div class="copyright text-center my-auto">
-          <span>Copyright &copy; Sigmatech 2021</span>
+          <span>Copyright &copy; Sigmatech 2022</span>
         </div>
       </div>
     </footer>
   </div>
 </div>
 {% endblock content %} {% block customBottomScripts %}
-<script src={{ url_for('admin_bp.static', filename='/theme/vendor/jquery/jquery.min.js')}}></script>
-<script src={{ url_for('admin_bp.static', filename='/theme/vendor/jquery-easing/jquery.easing.min.js')}}></script>
-<script src={{ url_for('admin_bp.static', filename='/theme/vendor/bootstrap/js/bootstrap.bundle.min.js')}}></script>
-<script src={{ url_for('admin_bp.static', filename='/theme/js/sb-admin-2.min.js')}}></script>
+
+<script src={{ url_for('admin_bp.static', filename='theme/vendor/jquery/jquery.min.js')}}></script>
+<script src={{ url_for('admin_bp.static', filename='theme/vendor/jquery-easing/jquery.easing.min.js')}}></script>
+
+<script src={{ url_for('admin_bp.static', filename='theme/vendor/bootstrap/js/bootstrap.bundle.min.js')}}></script>
+
+<script src={{ url_for('admin_bp.static', filename='theme/js/sb-admin-2.min.js')}}></script>
+
+<script src={{ url_for("admin_bp.static", filename='datatable-jquery/jquery.dataTables.min.js')}}></script>
+
+</script>
+
+{% block customAdminBottomScripts %}
+{% endblock customAdminBottomScripts %}
 {% endblock customBottomScripts %}

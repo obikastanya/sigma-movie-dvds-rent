@@ -9,7 +9,8 @@ class MovieDvdsController:
     def getMovieDvds():
         data=MovieDvds.query.all()
         jsonData=MovieDvdsSchema(many=True).dump(data)
-        return Resp.make(status=True, data=jsonData)
+        resp=Resp.make(data=jsonData)
+        return resp
 
     
     def getMovieDvd(id):
@@ -73,8 +74,6 @@ class MovieDvdsController:
             return Resp.withoutData(status=True, message='Movie succesfully deleted')
         except:
             return Resp.withoutData(status=True, message='Delete Failed')
-
-
 
 
 class MovieDvdsParameterHandler:

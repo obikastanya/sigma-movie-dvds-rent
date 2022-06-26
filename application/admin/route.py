@@ -11,6 +11,7 @@ admin_bp=Blueprint(
     static_folder='static')
 
 auth=LoginController()
+
 # route
 @admin_bp.get('/login')
 @auth.noSessionRequiredPage
@@ -24,11 +25,18 @@ def loginPage(**kwargs):
 def homePage(**kwargs):
     return render_template('dvdRenter.html')
 
+@admin_bp.get('/dvd-renter')
+@auth.loginRequiredPage
+def dvdRentPage(**kwargs):
+    return render_template('dvdRenter.html')
+
+
 @admin_bp.get('/logout')
 @auth.loginRequiredPage
 def logout(**kwargs):
     session.clear()
     return redirect(url_for('admin_bp.loginPage'))
+
 
 
 # api
