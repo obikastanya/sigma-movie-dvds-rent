@@ -11,18 +11,20 @@ class TableAction {
 
   releaseUser(event) {
     let id = event.target.getAttribute("data-id");
-    fetch("/admin/index", {
-      method: "DELETE",
+    document.getElementById("idField").value = id;
+    let parameter = {
+      id: id,
+    };
+    fetch("/admin/users/release", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify(parameter),
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.status) {
-          $("#datatable_id").DataTable().ajax.reload();
-        }
+        $("#datatable_id").DataTable().ajax.reload();
         alert(response.message);
       });
   }
@@ -97,8 +99,9 @@ class DatatabaleComponent {
         {
           data: null,
           render: (data) => {
+            console.log(data);
             if (data.banned_status == "B") {
-              return `<button type="button" class="btn btn-success btn-delete-data" data-id=${data.id} onClick='new TableAction().banUser(event)' >Release</button>`;
+              return `<button type="button" class="btn btn-success btn-delete-data" data-id=${data.id} onClick='new TableAction().releaseUser(event)' >Release</button>`;
             }
             return `<button type="button" class="btn btn-danger btn-bann-user" data-id=${data.id} onClick='new TableAction().banUser(event)'>Ban</button>`;
           },

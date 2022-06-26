@@ -7,7 +7,7 @@ class UserOnBan(db.Model):
     uob_msu_id =db.Column(db.Integer(),  db.ForeignKey('ms_user.msu_id'),nullable=False)
     uob_desc =db.Column(db.String(200), nullable=False)
     uob_banned_date = db.Column(db.Date(), nullable=False)
-    uob_release_date = db.Column(db.Date())
+    uob_release_date = db.Column(db.Date(), nullable=False)
     uob_create_date  = db.Column(db.Date())
     uob_create_user = db.Column(db.String(30))
     uob_update_date = db.Column(db.Date())

@@ -39,11 +39,27 @@ class UserController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Banned succes')
         except:
-            return Resp.withoutData(status=True, message='Failed o Ban')
+            return Resp.withoutData(status=True, message='Failed to Ban')
 
 
     def releaseUserBan():
-        pass
+        try:
+            parameter=UserParameterHandler.getReleaseParameter()
+            if not ParameterValidation.cantBeEmpty(parameter):
+                return Resp.withoutData('Invalid parameter.')
+            
+            user=User.query.filter_by(msu_id=parameter.get('msu_id')).first()
+            if not user:
+                return Resp.withoutData('User is not found')
+
+            user.msu_banned_status='R'
+            userOnBann=UserOnBan.query.filter(UserOnBan.uob_msu_id==parameter.get('oub_msu_id'), UserOnBan.uob_release_date is None )
+            userOnBann.uob_release_date=datetime.datetime.now()
+            db.session.commit()
+            return Resp.withoutData(status=True, message='Release succes')
+        except:
+            return Resp.withoutData(status=True, message='Failed to Release User Ban')
+
 
     def getFilter():
         parameter={'email':request.args.get('email'),'name':request.args.get('name'),}
@@ -67,4 +83,8 @@ class UserParameterHandler:
             'uob_banned_date': datetime.datetime.now()
         
         }
-    
+    def getReleaseParameter():
+        return {
+            'msu_id':request.json.get('id'),
+            'uob_msu_id':request.json.get('id')
+        }

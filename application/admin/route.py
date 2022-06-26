@@ -96,9 +96,9 @@ def getUsers():
 def banUser():
     return UserController.banUser()
 
-# @admin_bp.put('/user/ban')
-# def banUser():
-#     pass
+@admin_bp.post('/users/release')
+def releaseUser():
+    return UserController.releaseUserBan()
 
 @admin_bp.put('/user/ban-release')
 def releaseUserBan():
