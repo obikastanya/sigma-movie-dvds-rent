@@ -1,5 +1,7 @@
+import os
 from flask import request
 from sqlalchemy import func
+from werkzeug.utils import secure_filename
 from lib.response import Resp
 from lib.parameterValidation import ParameterValidation
 from app import db
@@ -36,7 +38,7 @@ class MovieDvdsController:
             newMovieDvd=MovieDvds(**parameter)
             db.session.add(newMovieDvd)
             db.session.commit()
-            return Resp.withoutData(status=True, message='Admin succesfully added')
+            return Resp.withoutData(status=True, message='Movie succesfully added')
         except:
             return Resp.withoutData(status=True, message='Insert Failed')
 
@@ -80,6 +82,14 @@ class MovieDvdsController:
             return Resp.withoutData(status=True, message='Movie succesfully deleted')
         except:
             return Resp.withoutData(status=True, message='Delete Failed')
+    
+    def uploadImage():
+        try:
+            file = request.files['file']
+            file.save(os.path.join('static/file_storage', secure_filename(file.filename)))
+            return Resp.make(status=True, message='Upload Success', data=[{'filename':'static/file_storage'+file.filename}])
+        except:
+            Resp.make(message='Upload fail')
 
     def getFilter():
         parameter={'id':request.args.get('id'),'title':request.args.get('title')}

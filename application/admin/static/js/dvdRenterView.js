@@ -5,14 +5,72 @@ class TableAction {
     this.addData = this.addData.bind(this);
   }
   editData(event) {}
-  deleteData(event) {
-    console.log(event);
-  }
+  deleteData(event) {}
   addData(event) {
     this.showModal("#id_modal_for_add_new_data");
   }
   showModal(idModal) {
     $(idModal).modal("show");
+  }
+
+  registerEvent() {
+    document
+      .getElementById("new_data_save_button_id")
+      .addEventListener("click", new ApiAction().saveData);
+  }
+}
+
+class ApiAction {
+  constructor() {
+    this.saveData = this.saveData.bind(this);
+  }
+  saveData() {
+    let getValue = (id) => document.getElementById(id).value;
+    let parameter = {
+      active_status: "Y",
+      age_certification: getValue("ageField"),
+      available_stock: getValue("totalDvdField"),
+      desc: getValue("descField"),
+      genre: getValue("genreField"),
+      image_path: "/",
+      release_date: getValue("releaseDateField"),
+      title: getValue("titleField"),
+      total_dvds: getValue("totalDvdField"),
+    };
+    const selectedFile = document.getElementById("posterField").files[0];
+    if (!selectedFile) {
+      alert("No image found");
+      return;
+    }
+    this.uploadFile(selectedFile).then((response) => {
+      if (response.status) {
+        parameter.image_path = response.data[0].filename;
+        return this.saveDvdData(parameter);
+      }
+      alert(response.message);
+    });
+  }
+  saveDvdData(parameter) {
+    fetch("/admin/dvd", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(parameter),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        $("#movie_dvd_datatable_id").DataTable().ajax.reload();
+        alert(response.message);
+      });
+  }
+  async uploadFile(file) {
+    let formData = new FormData();
+    formData.append("file", file);
+    return await fetch("/admin/dvd/upload", {
+      method: "POST",
+      body: formData,
+    }).then((response) => response.json());
   }
 }
 
@@ -90,4 +148,5 @@ class FormFilter {
 $(document).ready(function () {
   new DatatabaleMovie().render();
   new FormFilter().registerEvent();
+  new TableAction().registerEvent();
 });

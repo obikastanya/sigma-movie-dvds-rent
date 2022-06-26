@@ -66,43 +66,43 @@
             <div class="modal-body">
                 <form id='formAddNewData'>
                     <div class="mb-3">
-                        <label for="productIdFields" class="form-label">Product Code</label>
-                        <input type="text" class="form-control" id="productIdFields" placeholder="Product Code"
+                        <label for="productIdField" class="form-label">Product Code</label>
+                        <input type="text" class="form-control" id="productIdField" placeholder="Product Code"
                             disabled>
                     </div>
                     <div class="mb-3">
-                        <label for="productDescUpdateFields" class="form-label">Product</label>
-                        <input type="text" class="form-control" id="productDescUpdateFields" placeholder="Product">
+                        <label for="productDescUpdateField" class="form-label">Product</label>
+                        <input type="text" class="form-control" id="productDescUpdateField" placeholder="Product">
                     </div>
                     <div class="mb-3">
-                        <label for="brandUpdateFields" class="form-label">Brand</label>
-                        <input type="text" class="form-control" id="brandUpdateFields" placeholder="Brand">
+                        <label for="brandUpdateField" class="form-label">Brand</label>
+                        <input type="text" class="form-control" id="brandUpdateField" placeholder="Brand">
                     </div>
                     <div class="mb-3">
-                        <label for="priceUpdateFields" class="form-label">Price</label>
-                        <input type="text" class="form-control" id="priceUpdateFields" placeholder="Price">
+                        <label for="priceUpdateField" class="form-label">Price</label>
+                        <input type="text" class="form-control" id="priceUpdateField" placeholder="Price">
                     </div>
                     <div class="mb-3">
-                        <label for="categoryUpdateFields" class="form-label">Category</label>
-                        <select class="form-control" id="categoryUpdateFields" placeholder="Category">
+                        <label for="categoryUpdateField" class="form-label">Category</label>
+                        <select class="form-control" id="categoryUpdateField" placeholder="Category">
                             <option value=0>No item to select</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="supplierUpdateFields" class="form-label">Supplier</label>
-                        <select class="form-control" id="supplierUpdateFields" placeholder="Supplier">
+                        <label for="supplierUpdateField" class="form-label">Supplier</label>
+                        <select class="form-control" id="supplierUpdateField" placeholder="Supplier">
                             <option value=0>No item to select</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="companyUpdateFields" class="form-label">Product Company</label>
-                        <select class="form-control" id="companyUpdateFields" placeholder="Product Company">
+                        <label for="companyUpdateField" class="form-label">Product Company</label>
+                        <select class="form-control" id="companyUpdateField" placeholder="Product Company">
                             <option value=0>No item to select</option>
                         </select>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="activeStatusFields">
-                        <label class="form-check-label" for="activeStatusFields">Active Status</label>
+                        <input class="form-check-input" type="checkbox" value="" id="activeStatusField">
+                        <label class="form-check-label" for="activeStatusField">Active Status</label>
                     </div>
                 </form>
             </div>
@@ -139,47 +139,39 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Movie DVD</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id='formAddNewData'>
                     <div class="mb-3">
-                        <label for="productDescFields" class="form-label">Product</label>
-                        <input type="text" class="form-control" id="productDescFields" placeholder="Product">
+                        <label for="titleField" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="titleField" placeholder="Title" required>
                     </div>
                     <div class="mb-3">
-                        <label for="brandFields" class="form-label">Brand</label>
-                        <input type="text" class="form-control" id="brandFields" placeholder="Brand">
+                      <label for="descField" class="form-label">Description</label>
+                      <textarea class="form-control" id="descField" rows="3" placeholder="Description" required></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="priceFields" class="form-label">Price</label>
-                        <input type="text" class="form-control" id="priceFields" placeholder="Price">
-                    </div>
-                    <div class="mb-3">
-                        <label for="categoryFields" class="form-label">Category</label>
-                        <select class="form-control" id="categoryFields" placeholder="Category">
-                            <option value=1>1. Cosmetic</option>
-                            <option value=2>2. Food</option>
-                            <option value=3>3. Drink</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplierFields" class="form-label">Supplier</label>
-                        <select class="form-control" id="supplierFields" placeholder="Supplier">
-                            <option value=1>1. Alfamart Agent</option>
-                            <option value=2>2. Unilever Agent</option>
-                            <option value=3>3. Tokped Agent</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="companyFields" class="form-label">Product Company</label>
-                        <select class="form-control" id="companyFields" placeholder="Product Company">
-                            <option value=1>1. Unilever</option>
-                            <option value=2>2. Indofood</option>
-                            <option value=3>3. Java</option>
-                        </select>
-                    </div>
+                      <label for="genreField" class="form-label">Genre</label>
+                      <input type="text" class="form-control" id="genreField" placeholder="Genre" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="releaseDateField" class="form-label">Release Date</label>
+                    <input type="date" class="form-control" id="releaseDateField" placeholder="Release Date" required>
+                </div>
+                <div class="mb-3">
+                  <label for="ageField" class="form-label">Age Certification</label>
+                  <input type="number" class="form-control" id="ageField" placeholder="Age Certification" required>
+              </div>
+              <div class="mb-3">
+                <label for="totalDvdField" class="form-label">Total DVD</label>
+                <input type="number" class="form-control" id="totalDvdField" placeholder="Total DVD" required>
+              </div>
+              <div class="form-group">
+                <label for="posterField">Poster</label>
+                <input type="file" class="form-control-file" id="posterField">
+              </div>
                 </form>
             </div>
             <div class="modal-footer">
