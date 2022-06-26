@@ -92,6 +92,7 @@ class ApiAction {
       title: getValue("titleFieldUpd"),
       total_dvds: getValue("totalDvdFieldUpd"),
     };
+    print(data);
     const selectedFile = document.getElementById("posterField").files[0];
     if (selectedFile) {
       this.uploadUpdateFile(selectedFile).then((response) => {
@@ -153,7 +154,7 @@ class ApiAction {
     let formData = new FormData();
     formData.append("file", file);
     return await fetch("/admin/dvd/upload", {
-      method: "PUT",
+      method: "POST",
       body: formData,
     }).then((response) => response.json());
   }

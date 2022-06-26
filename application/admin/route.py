@@ -97,12 +97,14 @@ def softDeleteDvd():
 
 @admin_bp.post('/dvd')
 def insertDvd():
-        return MovieDvdsController.insertMovieDvd()
+    return MovieDvdsController.insertMovieDvd()
 
 
 @admin_bp.post('/dvd/upload')
 def uploadImageDvd():
-        return MovieDvdsController.uploadImage()
+    return MovieDvdsController.uploadImage()
+
+
 
 # mail
 

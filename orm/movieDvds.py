@@ -29,7 +29,7 @@ class MovieDvdsSchema(Schema):
     mvd_id =fields.Int(data_key='id')
     mvd_title =fields.Str(data_key='title')
     mvd_desc =fields.Str(data_key='desc')
-    mvd_release_date = fields.Date(format='%d-%m-%Y', data_key='release_date')
+    mvd_release_date = fields.Date(format='%d/%m/%Y', data_key='release_date')
     mvd_age_certification =fields.Int( data_key='age_certification')
     mvd_genre =fields.Str(data_key='genre')
     mvd_total_dvds =fields.Int(data_key='total_dvds')
