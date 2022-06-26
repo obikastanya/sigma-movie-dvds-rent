@@ -10,3 +10,10 @@ class ParameterValidation:
             if not parameter.get(key):
                 return False
         return True
+
+    def atLeastOneNotEmpty(parameter):
+        for value in parameter.values():
+            if value:
+                return True
+        return False    
+    

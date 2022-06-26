@@ -1,15 +1,22 @@
 from flask import request
+from sqlalchemy import func
 from lib.response import Resp
 from lib.parameterValidation import ParameterValidation
 from app import db
 from orm.movieDvds import MovieDvds, MovieDvdsSchema
 
+
 class MovieDvdsController:
 
     def getMovieDvds():
-        data=MovieDvds.query.all()
+        isExistFilter, filter=MovieDvdsController.getFilter()
+        data=None
+        if isExistFilter:
+            data=MovieDvds.query.filter(*filter).all()
+        else:
+            data=MovieDvds.query.all()
         jsonData=MovieDvdsSchema(many=True).dump(data)
-        resp=Resp.make(data=jsonData)
+        resp=Resp.make(data=jsonData,status=True)
         return resp
 
     
@@ -66,7 +73,6 @@ class MovieDvdsController:
                 return Resp.withoutData('Invalid parameter.')
             
             movie=MovieDvds.query.filter_by(mvd_id=parameter.get('mvd_id')).first()
-            print(movie)
             if not movie:
                 return Resp.withoutData('Movie is not found')
             movie.mvd_active_status =parameter.get('mvd_active_status')
@@ -75,6 +81,18 @@ class MovieDvdsController:
         except:
             return Resp.withoutData(status=True, message='Delete Failed')
 
+    def getFilter():
+        parameter={'id':request.args.get('id'),'title':request.args.get('title')}
+        if not ParameterValidation.atLeastOneNotEmpty(parameter):
+            return False,(None,)
+        # saved the query statement inside list so we can append and make it more dynamic,
+        # then parse them to tuple since its the alchemy requirement
+        groupOfFilterStatement=[]
+        if parameter.get('id'):
+            groupOfFilterStatement.append(*(MovieDvds.mvd_id==int(parameter.get('id')),))
+        if parameter.get('title'):
+            groupOfFilterStatement.append(*(func.lower(MovieDvds.mvd_title)==func.lower(parameter.get('title')),))
+        return True,tuple(groupOfFilterStatement)
 
 class MovieDvdsParameterHandler:
     def getInsertParameter():
