@@ -16,8 +16,7 @@ auth=LoginController()
 @admin_bp.get('/login')
 @auth.noSessionRequiredPage
 def loginPage(**kwargs):
-    message=pullNotif()
-    
+    message=pullNotif()    
     return render_template('loginAdmin.html', message=message)
 
 @admin_bp.get('/home')
@@ -37,6 +36,11 @@ def logout(**kwargs):
     session.clear()
     return redirect(url_for('admin_bp.loginPage'))
 
+
+@admin_bp.get('/admin/')
+@auth.loginRequiredPage
+def adminMasterPage(**kwargs):
+    return render_template('adminMaster.html')
 
 
 # api

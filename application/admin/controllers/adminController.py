@@ -1,4 +1,5 @@
 from flask import request
+from sqlalchemy import func
 import bcrypt
 from orm.admin import Admin, AdminSchema
 from lib.response import Resp
@@ -7,10 +8,17 @@ from app import db
 
 
 class AdminController:
+
     def getAdmins():
-        data=Admin.query.all()
+        isExistFilter, filter=AdminController.getFilter()
+        data=None
+        if isExistFilter:
+            data=Admin.query.filter(*filter).all()
+        else:
+            data=Admin.query.all()
         jsonData=AdminSchema(many=True).dump(data)
-        return Resp.make(status=True, data=jsonData)
+        resp=Resp.make(data=jsonData,status=True)
+        return resp
 
     def insertAdmin():
         try:
@@ -57,7 +65,17 @@ class AdminController:
             return Resp.withoutData(status=True, message='Admin succesfully deactived')
         except:
             return Resp.withoutData(status=True, message='Failed to deactive admin')
-
+    
+    def getFilter():
+        parameter={'email':request.args.get('email'),'name':request.args.get('name'),}
+        # saved the query statement inside list so we can append and make it more dynamic,
+        # then parse them to tuple since its the alchemy requirement
+        groupOfFilterStatement=[*(Admin.msa_active_status=='Y',)]
+        if parameter.get('email'):
+            groupOfFilterStatement.append(*(func.lower(Admin.msa_email)==func.lower(parameter.get('email')),))
+        if parameter.get('name'):
+            groupOfFilterStatement.append(*(func.lower(Admin.msa_name)==func.lower(parameter.get('name')),))
+        return True,tuple(groupOfFilterStatement)
 
 
 class AdminParameterHandler:
