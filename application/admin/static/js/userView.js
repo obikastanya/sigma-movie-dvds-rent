@@ -1,26 +1,15 @@
 class TableAction {
   constructor() {
     this.banUser = this.banUser.bind(this);
-    this.deleteData = this.deleteData.bind(this);
+    this.releaseUser = this.releaseUser.bind(this);
   }
   banUser(event) {
     let id = event.target.getAttribute("data-id");
-    fetch("/admin/user/" + id)
-      .then((response) => response.json())
-      .then((response) => {
-        let admin = response.data[0];
-        let setValue = (id, value) => {
-          let element = document.getElementById(id);
-          element.value = value;
-        };
-        setValue("idFieldUpd", admin.id);
-        setValue("nameFieldUpd", admin.name);
-        setValue("emailFieldUpd", admin.email);
-        $("#id_modal_for_edit").modal("show");
-      });
+    document.getElementById("idField").value = id;
+    $("#id_modal_for_edit").modal("show");
   }
 
-  deleteData(event) {
+  releaseUser(event) {
     let id = event.target.getAttribute("data-id");
     fetch("/admin/index", {
       method: "DELETE",
@@ -44,28 +33,22 @@ class TableAction {
   registerEvent() {
     document
       .getElementById("button_save_updated_data_id")
-      .addEventListener("click", new ApiAction().updateData);
+      .addEventListener("click", new ApiAction().applyBanUser);
   }
 }
 
 class ApiAction {
   constructor() {
-    this.updateData = this.updateData.bind(this);
+    this.applyBanUser = this.applyBanUser.bind(this);
   }
-  updateData() {
+  applyBanUser() {
     let getValue = (id) => document.getElementById(id).value;
     let parameter = {
-      active_status: "Y",
-      name: getValue("nameFieldUpd"),
-      password: getValue("passwordFieldUpd"),
-      email: getValue("emailFieldUpd"),
-      id: getValue("idFieldUpd"),
+      id: getValue("idField"),
+      desc: getValue("descField"),
     };
-    return this.updateAdminData(parameter);
-  }
-  updateAdminData(parameter) {
-    fetch("/admin/index", {
-      method: "PUT",
+    fetch("/admin/users/ban", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
@@ -115,9 +98,9 @@ class DatatabaleComponent {
           data: null,
           render: (data) => {
             if (data.banned_status == "B") {
-              return `<button type="button" class="btn btn-success btn-edit-data" data-id=${data.id} onClick='new TableAction().banUser(event)' >Release</button>`;
+              return `<button type="button" class="btn btn-success btn-delete-data" data-id=${data.id} onClick='new TableAction().banUser(event)' >Release</button>`;
             }
-            return `<button type="button" class="btn btn-danger btn-delete-data" data-id=${data.id} onClick='new TableAction().deleteData(event)'>Ban</button>`;
+            return `<button type="button" class="btn btn-danger btn-bann-user" data-id=${data.id} onClick='new TableAction().banUser(event)'>Ban</button>`;
           },
         },
       ],

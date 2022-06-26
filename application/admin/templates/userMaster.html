@@ -59,32 +59,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Admin</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ban User</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <form id='formEditData'>
-                <div class="mb-3">
-                  <label for="idFieldUpd" class="form-label">Id</label>
-                  <input type="text" class="form-control" id="idFieldUpd" placeholder="ID" disabled>
-                </div>               
-                <div class="mb-3">
-                  <label for="nameFieldUpd" class="form-label">Name</label>
-                  <input type="text" class="form-control" id="nameFieldUpd" placeholder="Name" required>
-                </div>
-                <div class="mb-3">
-                  <label for="emailFieldUpd" class="form-label">Email</label>
-                  <input type="email" class="form-control" id="emailFieldUpd" placeholder="Email" required>
+                <div class="mb-3" hidden>
+                  <label for="idField" class="form-label">ID</label>
+                  <input type="text" class="form-control" id="idField" placeholder="ID" required disabled >
               </div>
-              <div class="mb-3">
-                <label for="passwordFieldUpd" class="form-label">New Password</label>
-                <input type="password" class="form-control" id="passwordFieldUpd" placeholder="New Password" required>
-              </div>
+                  <div class="mb-3">
+                    <label for="descField" class="form-label">Reason</label>
+                    <textarea class="form-control" id="descField" rows="3" placeholder="Reason" required></textarea>
+                  </div>
                   </form>
               </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="button_save_updated_data_id">Save changes</button>
+                <button type="button" class="btn btn-primary" id="button_save_updated_data_id">Save</button>
             </div>
         </div>
     </div>
