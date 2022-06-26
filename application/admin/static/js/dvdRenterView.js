@@ -29,8 +29,24 @@ class TableAction {
         $("#id_modal_for_edit").modal("show");
       });
   }
-  t;
-  deleteData(event) {}
+
+  deleteData(event) {
+    let idMovie = event.target.getAttribute("data-id");
+    fetch("/admin/dvd", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: idMovie }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.status) {
+          $("#movie_dvd_datatable_id").DataTable().ajax.reload();
+        }
+        alert(response.message);
+      });
+  }
   addData(event) {
     this.showModal("#id_modal_for_add_new_data");
   }
@@ -92,7 +108,6 @@ class ApiAction {
       title: getValue("titleFieldUpd"),
       total_dvds: getValue("totalDvdFieldUpd"),
     };
-    print(data);
     const selectedFile = document.getElementById("posterField").files[0];
     if (selectedFile) {
       this.uploadUpdateFile(selectedFile).then((response) => {
@@ -105,13 +120,7 @@ class ApiAction {
 
       return;
     } else {
-      this.uploadUpdateFile(selectedFile).then((response) => {
-        if (response.status) {
-          parameter.image_path = response.data[0].filename;
-          return this.updateDvdData(parameter);
-        }
-        alert(response.message);
-      });
+      return this.updateDvdData(parameter);
     }
   }
   saveDvdData(parameter) {
@@ -197,7 +206,7 @@ class DatatabaleMovie {
           data: null,
           render: (data) => {
             let buttonEdit = `<button type="button" class="btn btn-warning btn-edit-data" data-id=${data.id} onClick='new TableAction().editData(event)' >Edit</button>`;
-            let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" onClick='new TableAction().deleteData(event)'>Delete</button>`;
+            let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-id=${data.id} onClick='new TableAction().deleteData(event)'>Delete</button>`;
             return buttonEdit + "&nbsp;" + buttonDelete;
           },
         },

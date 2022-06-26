@@ -93,7 +93,7 @@ def updateDvd():
 
 @admin_bp.delete('/dvd')
 def softDeleteDvd():
-        return MovieDvdsController.softDeleteMovieDvd()
+    return MovieDvdsController.softDeleteMovieDvd()
 
 @admin_bp.post('/dvd')
 def insertDvd():

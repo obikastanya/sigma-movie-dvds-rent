@@ -92,12 +92,10 @@ class MovieDvdsController:
             Resp.make(message='Upload fail')
 
     def getFilter():
-        parameter={'id':request.args.get('id'),'title':request.args.get('title')}
-        if not ParameterValidation.atLeastOneNotEmpty(parameter):
-            return False,(None,)
+        parameter={'id':request.args.get('id'),'title':request.args.get('title'),}
         # saved the query statement inside list so we can append and make it more dynamic,
         # then parse them to tuple since its the alchemy requirement
-        groupOfFilterStatement=[]
+        groupOfFilterStatement=[*(MovieDvds.mvd_active_status=='Y',)]
         if parameter.get('id'):
             groupOfFilterStatement.append(*(MovieDvds.mvd_id==int(parameter.get('id')),))
         if parameter.get('title'):
