@@ -3,6 +3,7 @@ from .controllers.adminController import AdminController
 from .controllers.movieDvdsController import MovieDvdsController
 from .controllers.userController import UserController
 from .controllers.loginController import LoginController, pullNotif
+from .controllers.dvdReviewsController import DvdReviewController
 
 admin_bp=Blueprint(
     'admin_bp', 
@@ -53,6 +54,12 @@ def adminMasterPage(**kwargs):
 @auth.loginRequiredPage
 def userMasterPage(**kwargs):
     return render_template('userMaster.html')
+
+@admin_bp.get('/dvd/reviews/data/<id>')
+@auth.loginRequiredPage
+def dvdMasterReviewPage(**kwargs):
+    id=kwargs.get('id')
+    return render_template('dvdMasterReview.html', id=id)
 
 
 # api
@@ -131,6 +138,15 @@ def insertDvd():
 def uploadImageDvd():
     return MovieDvdsController.uploadImage()
 
+
+# reviews
+@admin_bp.get('/dvd/reviews/<id>')
+def getDvdReviews(id):
+    return DvdReviewController.getDvdReviews(id)
+
+@admin_bp.delete('/dvd/reviews')
+def deleteDvdReviews():
+    return DvdReviewController.deleteDvdReviews()
 
 
 # mail

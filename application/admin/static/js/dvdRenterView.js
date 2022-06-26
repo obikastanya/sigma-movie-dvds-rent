@@ -205,9 +205,12 @@ class DatatabaleMovie {
         {
           data: null,
           render: (data) => {
+            let showReviews = `<a class="btn btn-primary" href="/admin/dvd/reviews/data/${data.id}" role="button">Reviews</a>`;
             let buttonEdit = `<button type="button" class="btn btn-warning btn-edit-data" data-id=${data.id} onClick='new TableAction().editData(event)' >Edit</button>`;
             let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-id=${data.id} onClick='new TableAction().deleteData(event)'>Delete</button>`;
-            return buttonEdit + "&nbsp;" + buttonDelete;
+            return (
+              buttonEdit + "&nbsp;" + buttonDelete + "&nbsp;" + showReviews
+            );
           },
         },
       ],

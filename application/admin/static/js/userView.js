@@ -99,7 +99,6 @@ class DatatabaleComponent {
         {
           data: null,
           render: (data) => {
-            console.log(data);
             if (data.banned_status == "B") {
               return `<button type="button" class="btn btn-success btn-delete-data" data-id=${data.id} onClick='new TableAction().releaseUser(event)' >Release</button>`;
             }
@@ -108,11 +107,7 @@ class DatatabaleComponent {
         },
       ],
       dom: `<'toolbar col col-sm-12 col-md-12 col-lg-6 justfiy-content-left text-left'>`,
-      fnInitComplete: () => {
-        $("div.toolbar").html(
-          `<button type="button" class="btn btn-success" onClick='new TableAction().addData(event)'>Add New Data</button>`
-        );
-      },
+      fnInitComplete: () => {},
     });
     datatable
       .on("draw.dt order.dt search.dt", function () {
