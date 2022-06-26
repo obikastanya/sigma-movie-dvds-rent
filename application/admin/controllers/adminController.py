@@ -43,7 +43,6 @@ class AdminController:
     def updateAdmin():
         try:
             parameter=AdminParameterHandler.getUpdateParameter()
-            print(parameter)
             if not ParameterValidation.certainKeyShouldExist(['msa_active_status','msa_id'],parameter):
                 return Resp.withoutData('Invalid parameter.')
             
@@ -63,7 +62,7 @@ class AdminController:
 
     def softDeleteAdmin():
         try:
-            parameter=AdminParameterHandler.getUpdateParameter()
+            parameter=AdminParameterHandler.getDeleteParameter()
             if not ParameterValidation.certainKeyShouldExist(['msa_active_status','msa_id'],parameter):
                 return Resp.withoutData('Invalid parameter.')
             

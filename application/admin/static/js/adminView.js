@@ -22,13 +22,13 @@ class TableAction {
   }
 
   deleteData(event) {
-    let idMovie = event.target.getAttribute("data-id");
-    fetch("/admin/dvd", {
+    let id = event.target.getAttribute("data-id");
+    fetch("/admin/index", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: idMovie }),
+      body: JSON.stringify({ id: id }),
     })
       .then((response) => response.json())
       .then((response) => {
@@ -110,7 +110,7 @@ class ApiAction {
   }
 }
 
-class DatatabaleMovie {
+class DatatabaleComponent {
   render() {
     const datatable = $("#admin_datatable_id").DataTable({
       processing: true,
@@ -178,7 +178,7 @@ class FormFilter {
 }
 
 $(document).ready(function () {
-  new DatatabaleMovie().render();
+  new DatatabaleComponent().render();
   new FormFilter().registerEvent();
   new TableAction().registerEvent();
 });
