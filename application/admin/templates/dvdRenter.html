@@ -60,50 +60,46 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Product</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Update Movie</h5>
                 <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+              <form id='formAddNewData'>
+                <div class="mb-3">
+                  <label for="idFieldUpd" class="form-label">ID</label>
+                  <input type="text" class="form-control" id="idFieldUpd" placeholder="ID" required disabled>
+              </div>
                 <form id='formAddNewData'>
-                    <div class="mb-3">
-                        <label for="productIdField" class="form-label">Product Code</label>
-                        <input type="text" class="form-control" id="productIdField" placeholder="Product Code"
-                            disabled>
-                    </div>
-                    <div class="mb-3">
-                        <label for="productDescUpdateField" class="form-label">Product</label>
-                        <input type="text" class="form-control" id="productDescUpdateField" placeholder="Product">
-                    </div>
-                    <div class="mb-3">
-                        <label for="brandUpdateField" class="form-label">Brand</label>
-                        <input type="text" class="form-control" id="brandUpdateField" placeholder="Brand">
-                    </div>
-                    <div class="mb-3">
-                        <label for="priceUpdateField" class="form-label">Price</label>
-                        <input type="text" class="form-control" id="priceUpdateField" placeholder="Price">
-                    </div>
-                    <div class="mb-3">
-                        <label for="categoryUpdateField" class="form-label">Category</label>
-                        <select class="form-control" id="categoryUpdateField" placeholder="Category">
-                            <option value=0>No item to select</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="supplierUpdateField" class="form-label">Supplier</label>
-                        <select class="form-control" id="supplierUpdateField" placeholder="Supplier">
-                            <option value=0>No item to select</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="companyUpdateField" class="form-label">Product Company</label>
-                        <select class="form-control" id="companyUpdateField" placeholder="Product Company">
-                            <option value=0>No item to select</option>
-                        </select>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="activeStatusField">
-                        <label class="form-check-label" for="activeStatusField">Active Status</label>
-                    </div>
+                  <div class="mb-3">
+                    <label for="titleFieldUpd" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="titleFieldUpd" placeholder="Title" required>
+                </div>
+                <div class="mb-3">
+                  <label for="descFieldUpd" class="form-label">Description</label>
+                  <textarea class="form-control" id="descFieldUpd" rows="3" placeholder="Description" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="genreFieldUpd" class="form-label">Genre</label>
+                  <input type="text" class="form-control" id="genreFieldUpd" placeholder="Genre" required>
+              </div>
+              <div class="mb-3">
+                <label for="releaseDateFieldUpd" class="form-label">Release Date</label>
+                <input type="date" class="form-control" id="releaseDateFieldUpd" placeholder="Release Date" required>
+            </div>
+            <div class="mb-3">
+              <label for="ageFieldUpd" class="form-label">Age Certification</label>
+              <input type="number" class="form-control" id="ageFieldUpd" placeholder="Age Certification" required>
+          </div>
+          <div class="mb-3">
+            <label for="totalDvdFieldUpd" class="form-label">Total DVD</label>
+            <input type="number" class="form-control" id="totalDvdFieldUpd" placeholder="Total DVD" required>
+          </div>
+          <div class="form-group">
+            <label for="posterFieldUpd">Update Poster</label>
+            <input type="file" class="form-control-file" id="posterFieldUpd">
+            <input type="text" class="form-control-file" id="posterPathFieldUpd" hidden>
+            <div id="updateImgPreview"></div>
+          </div>
                 </form>
             </div>
             <div class="modal-footer">

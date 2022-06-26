@@ -87,7 +87,7 @@ class MovieDvdsController:
         try:
             file = request.files['file']
             file.save(os.path.join('static/file_storage', secure_filename(file.filename)))
-            return Resp.make(status=True, message='Upload Success', data=[{'filename':'static/file_storage'+file.filename}])
+            return Resp.make(status=True, message='Upload Success', data=[{'filename':'static/file_storage/'+file.filename}])
         except:
             Resp.make(message='Upload fail')
 
