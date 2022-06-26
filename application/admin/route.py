@@ -30,6 +30,13 @@ def dvdRentPage(**kwargs):
     return render_template('dvdRenter.html')
 
 
+@admin_bp.get('/movie-dvd')
+@auth.loginRequiredPage
+def dvdMasterPage(**kwargs):
+    return render_template('dvdMaster.html')
+
+
+
 @admin_bp.get('/logout')
 @auth.loginRequiredPage
 def logout(**kwargs):
@@ -41,6 +48,11 @@ def logout(**kwargs):
 @auth.loginRequiredPage
 def adminMasterPage(**kwargs):
     return render_template('adminMaster.html')
+
+@admin_bp.get('/user-data')
+@auth.loginRequiredPage
+def userMasterPage(**kwargs):
+    return render_template('userMaster.html')
 
 
 # api
@@ -74,13 +86,19 @@ def softDeleteAdmin():
     return AdminController.softDeleteAdmin()
 
 # --- user
-@admin_bp.get('/user')
-def getUsers():
-    UserController.banUser()
 
-@admin_bp.put('/user/ban')
+@admin_bp.get('/users')
+def getUsers():
+    return UserController.getUsers()
+
+
+@admin_bp.post('/users/ban')
 def banUser():
-    pass
+    return UserController.banUser()
+
+# @admin_bp.put('/user/ban')
+# def banUser():
+#     pass
 
 @admin_bp.put('/user/ban-release')
 def releaseUserBan():

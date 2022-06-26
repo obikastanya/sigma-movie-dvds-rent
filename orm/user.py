@@ -1,4 +1,6 @@
 from app import db
+from marshmallow import fields, Schema
+
 
 class User(db.Model):
     __tablename__='ms_user'
@@ -10,6 +12,7 @@ class User(db.Model):
     msu_address =db.Column(db.String(200), nullable=False)
     msu_gender = db.Column(db.String(1), nullable=False)
     msu_birth_date = db.Column(db.Date(), nullable=False)
+    msu_banned_status =db.Column(db.String(1))
     msu_create_date  = db.Column(db.Date())
     msu_create_user = db.Column(db.String(30))
     msu_update_date = db.Column(db.Date())
@@ -21,5 +24,12 @@ class User(db.Model):
     user_movie_renter_head=db.relationship('MovieRenterHead', backref='user_movie_renter_head')
     
 
-class UserSchema():
-    pass
+class UserSchema(Schema):
+    msu_id =fields.Int(data_key='id')
+    msu_email = fields.Str(data_key='email')
+    msu_name = fields.Str(data_key='name')
+    msu_gender = fields.Str(data_key='gender')
+    msu_birth_date = fields.Str(data_key='birth_date')
+    msu_address =fields.Str(data_key='address')
+    msu_banned_status=fields.Str(data_key='banned_status')
+

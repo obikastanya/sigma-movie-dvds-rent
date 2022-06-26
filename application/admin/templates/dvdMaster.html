@@ -1,0 +1,168 @@
+{% extends 'adminFrame.html' %}
+{% block adminContent %}
+<div>
+  <form>
+    <div class="form-group">
+      <label for="movieId">Movie Id</label>
+      <input
+        type="number"
+        class="form-control"
+        id="movieId"
+        placeholder="Movie Id"
+      />
+    </div>
+    <div class="form-group">
+      <label for="movieId">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="movieTitle"
+        placeholder="Movie Title"
+      />
+    </div>
+    <button type="button" class="btn btn-primary" id="filterButtonId">Filter</button>
+  </form>
+</div>
+<div class="mt-5">
+  <div class="row">
+    <div class="col-sm-12">
+      
+      <table
+        class="table table-bordered table-striped"
+        id="movie_dvd_datatable_id"
+        width="100%"
+      >
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Movie Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Desc</th>
+            <th scope="col">Genre</th>
+            <th scope="col">Release Date</th>
+            <th scope="col">Total Stock</th>
+            <th scope="col">Available Stock</th>
+             <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+        </div>
+  </div>
+</div>
+
+
+<!-- modal -->
+
+<!-- Modal pop up for edit button inside datatable -->
+<div class="modal fade" id="id_modal_for_edit" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Movie</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id='formAddNewData'>
+                <div class="mb-3">
+                  <label for="idFieldUpd" class="form-label">ID</label>
+                  <input type="text" class="form-control" id="idFieldUpd" placeholder="ID" required disabled>
+              </div>
+                <form id='formAddNewData'>
+                  <div class="mb-3">
+                    <label for="titleFieldUpd" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="titleFieldUpd" placeholder="Title" required>
+                </div>
+                <div class="mb-3">
+                  <label for="descFieldUpd" class="form-label">Description</label>
+                  <textarea class="form-control" id="descFieldUpd" rows="3" placeholder="Description" required></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="genreFieldUpd" class="form-label">Genre</label>
+                  <input type="text" class="form-control" id="genreFieldUpd" placeholder="Genre" required>
+              </div>
+              <div class="mb-3">
+                <label for="releaseDateFieldUpd" class="form-label">Release Date</label>
+                <input type="date" class="form-control" id="releaseDateFieldUpd" placeholder="Release Date" f required>
+            </div>
+            <div class="mb-3">
+              <label for="ageFieldUpd" class="form-label">Age Certification</label>
+              <input type="number" class="form-control" id="ageFieldUpd" placeholder="Age Certification" required>
+          </div>
+          <div class="mb-3">
+            <label for="totalDvdFieldUpd" class="form-label">Total DVD</label>
+            <input type="number" class="form-control" id="totalDvdFieldUpd" placeholder="Total DVD" required>
+          </div>
+          <div class="form-group">
+            <label for="posterFieldUpd">Update Poster</label>
+            <input type="file" class="form-control-file" id="posterFieldUpd">
+            <input type="text" class="form-control-file" id="posterPathFieldUpd" hidden>
+            <div id="updateImgPreview"></div>
+          </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_save_updated_data_id">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal for button add new data  -->
+<div class="modal fade" id="id_modal_for_add_new_data" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Movie DVD</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id='formAddNewData'>
+                    <div class="mb-3">
+                        <label for="titleField" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="titleField" placeholder="Title" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="descField" class="form-label">Description</label>
+                      <textarea class="form-control" id="descField" rows="3" placeholder="Description" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="genreField" class="form-label">Genre</label>
+                      <input type="text" class="form-control" id="genreField" placeholder="Genre" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="releaseDateField" class="form-label">Release Date</label>
+                    <input type="date" class="form-control" id="releaseDateField" placeholder="Release Date" required>
+                </div>
+                <div class="mb-3">
+                  <label for="ageField" class="form-label">Age Certification</label>
+                  <input type="number" class="form-control" id="ageField" placeholder="Age Certification" required>
+              </div>
+              <div class="mb-3">
+                <label for="totalDvdField" class="form-label">Total DVD</label>
+                <input type="number" class="form-control" id="totalDvdField" placeholder="Total DVD" required>
+              </div>
+              <div class="form-group">
+                <label for="posterField">Poster</label>
+                <input type="file" class="form-control-file" id="posterField">
+              </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="new_data_save_button_id">Save Data</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock adminContent %} 
+
+
+{% block customAdminBottomScripts %}
+<script src={{url_for("admin_bp.static", filename='js/dvdRenterView.js')}}></script>
+
+{% endblock customAdminBottomScripts %}
