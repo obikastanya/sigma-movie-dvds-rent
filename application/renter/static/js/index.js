@@ -1,1 +1,0 @@
-console.log('Serving static file for second module')

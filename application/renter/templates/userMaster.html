@@ -1,0 +1,90 @@
+{% extends 'adminFrame.html' %}
+{% block adminContent %}
+<div>
+  <form>
+    <div class="form-group">
+      <label for="userEmail">Email</label>
+      <input
+        type="email"
+        class="form-control"
+        id="userEmail"
+        placeholder="Email"
+      />
+    </div>
+    <div class="form-group">
+      <label for="userName">Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="userName"
+        placeholder="Name"
+      />
+    </div>
+    <button type="button" class="btn btn-primary" id="filterButtonId">Filter</button>
+  </form>
+</div>
+<div class="mt-5">
+  <div class="row">
+    <div class="col-sm-12">
+      
+      <table
+        class="table table-bordered table-striped"
+        id="datatable_id"
+        width="100%"
+      >
+        <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Birth Date</th>
+            <th scope="col">address</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+        </div>
+  </div>
+</div>
+
+
+<!-- modal -->
+
+<!-- Modal pop up for edit button inside datatable -->
+<div class="modal fade" id="id_modal_for_edit" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ban User</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id='formEditData'>
+                <div class="mb-3" hidden>
+                  <label for="idField" class="form-label">ID</label>
+                  <input type="text" class="form-control" id="idField" placeholder="ID" required disabled >
+              </div>
+                  <div class="mb-3">
+                    <label for="descField" class="form-label">Reason</label>
+                    <textarea class="form-control" id="descField" rows="3" placeholder="Reason" required></textarea>
+                  </div>
+                  </form>
+              </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="button_save_updated_data_id">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock adminContent %} 
+
+
+{% block customAdminBottomScripts %}
+<script src={{url_for("admin_bp.static", filename='js/userView.js')}}></script>
+{% endblock customAdminBottomScripts %}
