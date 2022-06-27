@@ -11,4 +11,5 @@ class MovieRenterDetail(db.Model):
     mrtd_update_user = db.Column(db.String(30))
 
 class MovieRenterDetailSchema(Schema):
-    movie_dvds_movie_returned_detail=fields.Nested('MovieDvdsSchema', only=('mvd_id', 'mvd_desc'), data_key='movie')
+    mrtd_mvd_id=fields.Int(data_key='movie_id')
+    movie_dvds_movie_rentr_detail=fields.Nested('MovieDvdsSchema', only=('mvd_id', 'mvd_desc'), data_key='movie')

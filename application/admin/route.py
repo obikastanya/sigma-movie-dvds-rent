@@ -4,6 +4,7 @@ from .controllers.movieDvdsController import MovieDvdsController
 from .controllers.userController import UserController
 from .controllers.loginController import LoginController, pullNotif
 from .controllers.dvdReviewsController import DvdReviewController
+from .controllers.renterHeadController import RenterHeadController
 
 admin_bp=Blueprint(
     'admin_bp', 
@@ -117,7 +118,7 @@ def releaseUserBan():
 def getDvds():
     return MovieDvdsController.getMovieDvds()
 
-@admin_bp.get('/dvd/<id>')
+@admin_bp.get('/dvd/<id>/')
 def getDvd(id):
     return MovieDvdsController.getMovieDvd(id)
 
@@ -147,6 +148,17 @@ def getDvdReviews(id):
 @admin_bp.delete('/dvd/reviews')
 def deleteDvdReviews():
     return DvdReviewController.deleteDvdReviews()
+
+# renter
+@admin_bp.get('/dvd-renter/data')
+def getRenters():
+    return RenterHeadController.getRenters()
+
+
+# # renter
+# @admin_bp.delete('/dvd/renter2')
+# def getRenters():
+#     return RenterHeadController.getRenters()
 
 
 # mail
