@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template,session, redirect, url_for
+from .controllers.userController import UserController
 from .controllers.loginController import LoginController, pullNotif
 from .controllers.registerController import RegisterController
 from .controllers.movieDvdsController import MovieDvdsController
@@ -46,6 +47,12 @@ def reviewDvd(**kwargs):
 def rentDvdHistoryPage(**kwargs):
     id=kwargs.get('id')
     return render_template('rentingHistory.html', id=id)
+
+
+@user_bp.get('/profile')
+@auth.loginRequiredPage
+def profilePage(**kwargs):
+    return render_template('profile.html')
 
 
 
@@ -111,6 +118,10 @@ def getInvoice(**kwargs):
 @user_bp.post('/user/payment/upload')
 def uploadPayment():
     return InvoiceController.uploadImage()
+
+@user_bp.post('/user/index')
+def getUser():
+    return UserController.getUser()
 
 
 @user_bp.post('/user/payment/validate')
