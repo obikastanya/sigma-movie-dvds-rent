@@ -1,110 +1,22 @@
 class TableAction {
   constructor() {
-    this.editData = this.editData.bind(this);
-    this.deleteData = this.deleteData.bind(this);
-    this.addData = this.addData.bind(this);
-  }
-  editData(event) {
-    let id = event.target.getAttribute("data-id");
-    fetch("/admin/index/" + id)
-      .then((response) => response.json())
-      .then((response) => {
-        let admin = response.data[0];
-        let setValue = (id, value) => {
-          let element = document.getElementById(id);
-          element.value = value;
-        };
-        setValue("idFieldUpd", admin.id);
-        setValue("nameFieldUpd", admin.name);
-        setValue("emailFieldUpd", admin.email);
-        $("#id_modal_for_edit").modal("show");
-      });
+    this.alertUser = this.alertUser.bind(this);
   }
 
-  deleteData(event) {
-    let id = event.target.getAttribute("data-id");
-    fetch("/admin/index", {
-      method: "DELETE",
+  alertUser(event) {
+    let id = event.target.getAttribute("data-user-id");
+    fetch("/admin/dvd-renter/alert", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ id: id }),
+      body: JSON.stringify({ userId: id }),
     })
       .then((response) => response.json())
       .then((response) => {
         if (response.status) {
           $("#datatable_id").DataTable().ajax.reload();
         }
-        alert(response.message);
-      });
-  }
-  addData(event) {
-    this.showModal("#id_modal_for_add_new_data");
-  }
-  showModal(idModal) {
-    $(idModal).modal("show");
-  }
-  registerEvent() {
-    document
-      .getElementById("new_data_save_button_id")
-      .addEventListener("click", new ApiAction().saveData);
-    document
-      .getElementById("button_save_updated_data_id")
-      .addEventListener("click", new ApiAction().updateData);
-  }
-}
-
-class ApiAction {
-  constructor() {
-    this.saveData = this.saveData.bind(this);
-    this.updateData = this.updateData.bind(this);
-  }
-  saveData() {
-    let getValue = (id) => document.getElementById(id).value;
-    let parameter = {
-      active_status: "Y",
-      name: getValue("nameField"),
-      password: getValue("passwordField"),
-      email: getValue("emailField"),
-    };
-    return this.saveAdminData(parameter);
-  }
-  updateData() {
-    let getValue = (id) => document.getElementById(id).value;
-    let parameter = {
-      active_status: "Y",
-      name: getValue("nameFieldUpd"),
-      password: getValue("passwordFieldUpd"),
-      email: getValue("emailFieldUpd"),
-      id: getValue("idFieldUpd"),
-    };
-    return this.updateAdminData(parameter);
-  }
-  saveAdminData(parameter) {
-    fetch("/admin/index", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(parameter),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        $("#datatable_id").DataTable().ajax.reload();
-        alert(response.message);
-      });
-  }
-  updateAdminData(parameter) {
-    fetch("/admin/index", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(parameter),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        $("#datatable_id").DataTable().ajax.reload();
         alert(response.message);
       });
   }
@@ -145,13 +57,9 @@ class DatatabaleComponent {
           render: (data) => {
             let disabled = "";
             if (data.due_status == "N") {
-              disabled = "disabled";
+              // disabled = "disabled";
             }
-            let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-id=${
-              data.id
-            } data=${JSON.stringify(
-              data
-            )} onClick='new TableAction().deleteData(event)' ${disabled}>Alert</button>`;
+            let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-user-id=${data.user_id} onClick='new TableAction().alertUser(event)' ${disabled}>Alert</button>`;
             return buttonDelete;
           },
         },
@@ -169,15 +77,6 @@ class DatatabaleComponent {
           });
       })
       .draw();
-  }
-}
-
-class FormFilter {
-  registerEvent() {
-    let buttonFilter = document.getElementById("filterButtonId");
-    buttonFilter.addEventListener("click", function (event) {
-      $("#datatable_id").DataTable().ajax.reload();
-    });
   }
 }
 

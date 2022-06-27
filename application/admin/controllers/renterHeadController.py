@@ -1,6 +1,8 @@
+from flask import request
 from lib.response import Resp
 from lib.parameterValidation import ParameterValidation
-from orm.movieRenterHead import MovieRenterHead,MovieRenterHeadSchema
+from orm.alert import Alert
+
 from app import db
 
 
@@ -12,7 +14,17 @@ class RenterHeadController:
         resp=Resp.make(data=jsonData,status=True)
         return resp
     
-
+    def alert():
+        try:
+            parameter={'al_msu_id':request.json.get('userId')}
+            newAlert=Alert(**parameter)
+            db.session.add(newAlert)
+            db.session.commit()
+            resp=Resp.withoutData(status=True, message='Alert has been sended')
+        except:
+            resp=Resp.withoutData(status=True, message='Alert failed')    
+        return resp
+    
 
 class QueryModel:
     def getRenters():

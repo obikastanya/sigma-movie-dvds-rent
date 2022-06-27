@@ -155,10 +155,10 @@ def getRenters():
     return RenterHeadController.getRenters()
 
 
-# # renter
-# @admin_bp.delete('/dvd/renter2')
-# def getRenters():
-#     return RenterHeadController.getRenters()
+# renter
+@admin_bp.post('/dvd/renter/alert')
+def alertRenters():
+    return RenterHeadController.alert()
 
 
 # mail
