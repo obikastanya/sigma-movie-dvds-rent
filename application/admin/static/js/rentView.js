@@ -143,11 +143,15 @@ class DatatabaleComponent {
         {
           data: null,
           render: (data) => {
+            let disabled = "";
+            if (data.due_status == "N") {
+              disabled = "disabled";
+            }
             let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-id=${
               data.id
             } data=${JSON.stringify(
               data
-            )} onClick='new TableAction().deleteData(event)'>Alert</button>`;
+            )} onClick='new TableAction().deleteData(event)' ${disabled}>Alert</button>`;
             return buttonDelete;
           },
         },

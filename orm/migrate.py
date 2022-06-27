@@ -10,3 +10,4 @@ from .movieReturnedHead import MovieReturnedHead
 from .movieReturnedDetail import MovieReturnedDetail
 from .courier import Courier
 from .admin import Admin
+from .alert import Alert
