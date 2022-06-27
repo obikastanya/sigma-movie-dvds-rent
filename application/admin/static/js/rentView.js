@@ -124,6 +124,7 @@ class DatatabaleComponent {
           data: null,
           defaultContent: "",
         },
+        { data: "name" },
         { data: "rent_start_date" },
         { data: "rent_due_date" },
         {
@@ -142,9 +143,12 @@ class DatatabaleComponent {
         {
           data: null,
           render: (data) => {
-            let buttonEdit = `<button type="button" class="btn btn-warning btn-edit-data" data-id=${data.id} onClick='new TableAction().editData(event)' >Edit</button>`;
-            let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-id=${data.id} onClick='new TableAction().deleteData(event)'>Delete</button>`;
-            return buttonEdit + "&nbsp;" + buttonDelete;
+            let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-id=${
+              data.id
+            } data=${JSON.stringify(
+              data
+            )} onClick='new TableAction().deleteData(event)'>Alert</button>`;
+            return buttonDelete;
           },
         },
       ],
