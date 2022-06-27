@@ -31,8 +31,14 @@ class Profile {
         }
       });
   }
+  update() {
+    
+  }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   new Profile().render();
+  document
+    .getElementById("updateButtonId")
+    .addEventListener("click", new Profile.update());
 });
