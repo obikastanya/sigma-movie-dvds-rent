@@ -31,17 +31,46 @@
   <input type="text" id="hiddenUserId" value={{session.get('user_id')}} hidden>
   <div class="pt-4 pl-5 col-sm-8">
     <div class="row p-5 m5">
-      <div class="col-sm-4">
+      <div class="col-sm-8">
         <form>
           <h5>Validate Payment</h5>
           <div class="mb-3">
             <label for="invoiceIdField" class="form-label">Invoice Number</label>
-            <input type="number" class="form-control" id="invoiceIdField" >
+            <input type="number" class="form-control" id="invoiceIdField" width="200" >
             </div>
           <button type="button" class="btn btn-primary">Find</button>
         </form>
+        <hr>
+        <div id="validateForm">
+          <!-- <form>
+
+            <div class="mb-3" hidden>
+              <input type="number" class="form-control" id="transactionIdField"  hidden>
+            </div>
+  
+            <div class="mb-3">
+              <label for="invoiceIdField" class="form-label" >Invoice Number</label>
+              <input type="number" class="form-control" id="invoiceIdField" value={{id}} disabled>
+            </div>
+
+            <div class="mb-3">
+              <label for="nominalField" class="form-label" >Invoice Number</label>
+              <input type="number" class="form-control" id="nominalField" value={{id}} disabled>
+            </div>
+            <div class="form-group">
+              <label for="paymentReceiptField" class="form-label d-block" >Payment Receipt</label>
+              <input type="file" class="form-control-file" id="paymentReceiptField">
+              <div id="updateImgPreview"></div>
+            </div>
+
+            <button type="button" class="btn btn-primary mt-4" id="submitButtonId">Submit</button>
+          </form> -->
+          
+        </div>
       </div>
     </div>
+    
+    
     <div class="row px-5 ">
       <table class="table">
         <thead class="thead-light">
@@ -54,10 +83,7 @@
         </thead>
         <tbody id="history_table">
           <tr>
-            <td>1</td>
-            <td>start date</td>
-            <td>end date</td>
-            <td>movie</td>
+              <td colspan="4">No Rentings History Yet.</td>
           </tr>
         </tbody>
       </table>

@@ -1,7 +1,6 @@
 class HistoryRent {
   render() {
     let parameter = { userId: document.getElementById("hiddenUserId").value };
-    console.log(parameter);
     fetch("/user/dvd/rent/history", {
       method: "POST",
       headers: {
