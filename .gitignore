@@ -1,2 +1,6 @@
 env
 __pycache__
+static/file_storage/payment/*
+static/file_storage/*.jpg
+static/file_storage/*.png
+static/file_storage/*.jepg
