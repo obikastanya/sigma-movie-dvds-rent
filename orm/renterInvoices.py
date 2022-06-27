@@ -1,4 +1,5 @@
 from app import db
+from marshmallow import Schema, fields
 
 class RenterInvoices(db.Model):
     __tablename__='renter_invoices'
@@ -13,3 +14,9 @@ class RenterInvoices(db.Model):
     ri_create_user = db.Column(db.String(30))
     ri_update_date = db.Column(db.Date())
     ri_update_user = db.Column(db.String(30))
+
+class RenterInvoicesSchema(Schema):
+    ri_id = fields.Int(data_key='id')
+    ri_mrth_id=fields.Int(data_key='transaction_id')
+    ri_nominal =fields.Int(data_key='Nominal')
+    

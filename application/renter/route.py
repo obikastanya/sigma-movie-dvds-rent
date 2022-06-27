@@ -4,6 +4,7 @@ from .controllers.registerController import RegisterController
 from .controllers.movieDvdsController import MovieDvdsController
 from .controllers.dvdReviewsController import DvdReviewController
 from .controllers.renterController import RenterController
+from .controllers.invoiceController import InvoiceController
 
 user_bp=Blueprint(
     'user_bp', 
@@ -100,5 +101,11 @@ def rentDvd(**kwargs):
 # @auth.loginRequiredApi
 def rentDvdHistory(**kwargs):
     return RenterController.getRentHistory()
+
+
+@user_bp.post('/user/dvd/rent/invoices')
+# @auth.loginRequiredApi
+def getInvoice(**kwargs):
+    return InvoiceController.getInvoice()
 
 
