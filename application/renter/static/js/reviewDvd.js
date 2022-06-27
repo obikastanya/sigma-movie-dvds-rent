@@ -8,7 +8,7 @@ class ReviewDvd {
       .then((response) => response.json())
       .then((response) => {
         let reviews = this.createReview(response.data);
-        if (!reviews) {
+        if (!reviews.length) {
           document.getElementById("reviewContainerId").innerHTML =
             "<p>No reviews yet.</p>";
           return;
@@ -21,7 +21,7 @@ class ReviewDvd {
   setMovieDetail(movie) {
     if (movie.image_path && movie.image_path.length > 5) {
       document.getElementById("posterId").innerHTML = `
-      <img src="${movie.image_path}" alt="">`;
+      <img src="/${movie.image_path}" width='350' alt="">`;
     }
     console.log(movie);
     let setValue = (id, value) =>
@@ -51,7 +51,37 @@ class ReviewDvd {
     return reviews;
   }
 }
+class ReviewSubmit {
+  constructor() {
+    this.submit = this.submit.bind(this);
+  }
+  submit() {
+    let parameter = {
+      movieId: document.getElementById("hiddenMovieId").value,
+      desc: document.getElementById("reviewField").value,
+      rate: document.querySelector('input[name="rate"]:checked').value,
+    };
+    fetch("/user/review/dvd-data", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(parameter),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.status) {
+          new ReviewDvd().render();
+        }
+
+        alert(response.message);
+      });
+  }
+}
 
 document.addEventListener("DOMContentLoaded", function () {
   new ReviewDvd().render();
+  document
+    .getElementById("submitButtonId")
+    .addEventListener("click", new ReviewSubmit().submit);
 });

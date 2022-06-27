@@ -68,3 +68,9 @@ def getDvd(id):
 def reviewPage(**kwargs):
     id=kwargs.get('id')
     return DvdReviewController.getDvdReviews(id)
+
+
+@user_bp.post('/user/review/dvd-data')
+# @auth.loginRequiredApi
+def insertReview(**kwargs):
+    return DvdReviewController.insertReview()
