@@ -63,6 +63,7 @@ class RenterController:
     
     def getRentHistory():
         userId=request.json.get("userId")
+        print(userId)
         data=QueryModel.getRentHistory({'id':userId})
         jsonData=Resp.map(['id','start_date','due_date', 'shipping_destination','movie_id', 'title'],data)
         resp=Resp.make(data=jsonData,status=True)
@@ -96,6 +97,7 @@ class QueryModel:
         mrth_shipping_destination, mvd_id, mvd_title from movie_renter_head, 
         movie_renter_detail, ms_movie_dvds,  ms_user, renter_invoices
         where mrth_msu_id =msu_id and mrtd_mrth_id=mrth_id and mvd_id=mrtd_mvd_id and 
-        ri_mrth_id= mrth_id and ri_status_bayar='Y' and mrth_msu_id=:id
+        ri_mrth_id= mrth_id and ri_status_bayar='Y' 
+        -- and mrth_msu_id=:id
         """
         return db.session.execute(query, parameter)

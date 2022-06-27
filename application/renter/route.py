@@ -40,6 +40,13 @@ def reviewDvd(**kwargs):
     return render_template('movieReview.html', id=id)
 
 
+@user_bp.get('/history')
+@auth.loginRequiredPage
+def rentDvdHistoryPage(**kwargs):
+    id=kwargs.get('id')
+    return render_template('rentingHistory.html', id=id)
+
+
 
 @user_bp.get('/dvd/rent/<id>/')
 @auth.loginRequiredPage
