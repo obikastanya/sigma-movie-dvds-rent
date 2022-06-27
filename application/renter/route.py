@@ -36,8 +36,15 @@ def registerPage(**kwargs):
 @auth.loginRequiredPage
 def reviewDvd(**kwargs):
     id=kwargs.get('id')
-    print('shiit happened')
     return render_template('movieReview.html', id=id)
+
+
+
+@user_bp.get('/dvd/rent/<id>/')
+@auth.loginRequiredPage
+def rentingMovieDvd(**kwargs):
+    id=kwargs.get('id')
+    return render_template('movieRenting.html', id=id)
 
 
 @user_bp.get('/logout')

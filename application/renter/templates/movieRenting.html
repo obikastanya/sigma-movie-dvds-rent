@@ -1,0 +1,104 @@
+{% extends 'base.html' %} {% block content %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <div class="col-11">
+            {% if session.get('user_name') %}
+              
+            <a class="navbar-brand" href="/user">{{session.get('user_name')}}</a>
+              {% else %}
+              <a class="navbar-brand" href="/user">Anonymous User</a> 
+              {% endif %}
+              |
+            <a class="navbar-brand" href="/">Sigma DVDs Shop</a>
+        </div>
+        <div class="col-1">
+            <div class="text-right">
+              <a href="/cart">
+                <button type="button" class="btn btn-error position-relative">  
+                  <span 
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+                    id="notifId"
+                    >0</span>Notif
+                  </button> 
+                </a>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <input type="text" id="hiddenMovieId" value={{id}} hidden>
+    <div class="container pt-5 pl-2 row">
+      <div class="col-md-6">
+
+      <span id="posterId">
+        <img src="/static/defaultImage/posterMovie.png" alt="">
+      </span>
+        <div class="row">
+          <table class="table table-borderless">
+              <tbody id="cItemList">
+                <tr><td width='150'>Title </td><td id="title">: -</td></tr>
+                <tr><td width='150'>Genre </td><td id="genre">: -</td></tr>
+                <tr><td width='150'>Release Date </td><td id="releaseDate">: -</td></tr>
+                <tr><td width='150'>Age Certification </td><td id="ageCertification">: -</td></tr>
+                <tr><td width='150'>Stock </td><td id="availableStock">: -</td></tr>
+                <tr><td width='150'>Description</td><td id="desc">: -</td></tr> 
+              </tbody>
+          </table>
+      </div>
+      </div>
+      <div class="col-md-6">
+        <form>
+
+          <div class="mb-3" hidden>
+            <label for="userIdField" class="form-label" >User ID</label>
+            <input type="number" class="form-control" id="userIdField"disabled>
+          </div>
+
+          <div class="mb-3">
+            <label for="idField" class="form-label" >Movie ID</label>
+            <input type="number" class="form-control" id="idField">
+          </div>
+
+          <div class="mb-3" >
+            <label for="startDateField" class="form-label" >Start Date</label>
+            <input type="date" class="form-control" id="startDateField">
+          </div>
+
+          <div class="mb-3">
+            <label for="endDateField" class="form-label" >End Date</label>
+            <input type="date" class="form-control" id="endDateField">
+          </div>
+
+          <div class="mb-3">
+            <label for="addressField" class="form-label">Address</label>
+            <textarea
+              class="form-control"
+              id="addressField"
+              rows="3"
+              placeholder="Address"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="submitButtonId">Submit</button>
+        </form>
+        <hr>
+        <div class="invoicesNote">
+          <p>Invoices Id : 1234351</p>
+          <p>Payment Nominal : 25000</p>
+          <p>Bank Account  : 038922198572(BCA)</p>
+          <p>Pay before 22 Jun 2022</p>
+          <p>*Keep your invoices id, you gonna need it for payment validation.</p>
+          <p><a href="">Validate your payment here.</a> </p>
+        </div>
+      </div>
+  </div>
+
+
+  {% endblock content %} {% block customBottomScripts %} 
+
+  <script src={{ url_for("user_bp.static", filename='js/rentingDvd.js')}}></script>
+
+{% endblock customBottomScripts %}

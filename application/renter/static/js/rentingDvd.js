@@ -1,4 +1,4 @@
-class ReviewDvd {
+class RentingDvd {
   constructor() {
     this.render = this.render.bind(this);
   }
@@ -7,15 +7,7 @@ class ReviewDvd {
     fetch(`/user/review/dvd-data/${id}`)
       .then((response) => response.json())
       .then((response) => {
-        let reviews = this.createReview(response.data);
-        if (!reviews.length) {
-          document.getElementById("reviewContainerId").innerHTML =
-            "<p>No reviews yet.</p>";
-          return;
-        }
         this.setMovieDetail(response.movieData);
-        document.getElementById("reviewContainerId").innerHTML =
-          reviews.join("");
       });
   }
   setMovieDetail(movie) {
@@ -33,25 +25,8 @@ class ReviewDvd {
     setValue("availableStock", movie.available_stock);
     setValue("desc", movie.desc);
   }
-  createReview(data) {
-    let reviews = [];
-    for (let review of data) {
-      let template = `
-            <div className="row mx-2 mb-1 ">
-            <p className="mb-0">
-              <span className="h6"> ${review.users.name}</span>
-              <small className="ms-2 text-secondary">(Rate: ${review.rate}) </small>
-            </p>
-            <p>
-              <small>${review.desc}</small>
-            </p>
-          </div>`;
-      reviews.push(template);
-    }
-    return reviews;
-  }
 }
-class ReviewSubmit {
+class RentingSubmit {
   constructor() {
     this.submit = this.submit.bind(this);
   }
@@ -61,8 +36,6 @@ class ReviewSubmit {
       desc: document.getElementById("reviewField").value,
       rate: document.querySelector('input[name="rate"]:checked').value,
     };
-    console.log(parameter);
-    return;
     fetch("/user/review/dvd-data", {
       method: "POST",
       headers: {
@@ -73,7 +46,7 @@ class ReviewSubmit {
       .then((response) => response.json())
       .then((response) => {
         if (response.status) {
-          new ReviewDvd().render();
+          new RentingDvd().render();
         }
 
         alert(response.message);
@@ -82,7 +55,7 @@ class ReviewSubmit {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  new ReviewDvd().render();
+  new RentingDvd().render();
   document
     .getElementById("submitButtonId")
     .addEventListener("click", new ReviewSubmit().submit);

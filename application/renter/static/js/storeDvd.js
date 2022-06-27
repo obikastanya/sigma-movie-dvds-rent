@@ -59,12 +59,11 @@ class StoreDvd {
             <img src="/${movie.image_path}" class="card-img-top"  alt="Poster">
             <div class="card-body">
               <h5 class="card-title">${movie.title}</h5>
-              <p class="card-text">${movie.genre}</p>
+              <p class="card-text"> ${movie.genre}</p>
               <p class="card-text">${movie.desc}</p>
-              <p class="card-text">${movie.desc}</p>
-
+              <p class="card-text"> Available : ${movie.available_stock} dvds</p>
               <p class="card-text">Status : On Air</p>
-              <a href="#" class="btn btn-primary" ${disabledRent}>Rent</a>
+              <a href="/dvd/rent/${movie.id}" class="btn btn-primary" ${disabledRent}>Rent</a>
               <a href=/review/dvd/${movie.id} class="btn btn-warning">Review</a>
             </div>
           </div>
