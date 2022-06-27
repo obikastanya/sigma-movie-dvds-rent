@@ -5,6 +5,7 @@ from .controllers.userController import UserController
 from .controllers.loginController import LoginController, pullNotif
 from .controllers.dvdReviewsController import DvdReviewController
 from .controllers.renterHeadController import RenterHeadController
+from .controllers.invoicesController import InvoiceController
 
 admin_bp=Blueprint(
     'admin_bp', 
@@ -62,6 +63,21 @@ def dvdMasterReviewPage(**kwargs):
     id=kwargs.get('id')
     return render_template('dvdMasterReview.html', id=id)
 
+#invoices
+@admin_bp.get('/invoices')
+@auth.loginRequiredPage
+def invoicesPage(**kwargs):
+    return render_template('renterInvoices.html')
+
+@admin_bp.get('/invoices/data')
+# @auth.loginRequiredApi
+def getInvoices(**kwargs):
+    return InvoiceController.getInvoices()
+
+@admin_bp.post('/invoices/data/validate')
+# @auth.loginRequiredApi
+def validateInvoice(**kwargs):
+    return InvoiceController.validatePayment()
 
 # api
 # ---login
