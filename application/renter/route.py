@@ -2,6 +2,7 @@ from flask import Blueprint, render_template,session, redirect, url_for
 from .controllers.loginController import LoginController, pullNotif
 from .controllers.registerController import RegisterController
 from .controllers.movieDvdsController import MovieDvdsController
+from .controllers.dvdReviewsController import DvdReviewController
 
 user_bp=Blueprint(
     'user_bp', 
@@ -31,6 +32,14 @@ def registerPage(**kwargs):
     return render_template('registerUser.html')
 
 
+@user_bp.get('/review/dvd/<id>/')
+@auth.loginRequiredPage
+def reviewDvd(**kwargs):
+    id=kwargs.get('id')
+    print('shiit happened')
+    return render_template('movieReview.html', id=id)
+
+
 @user_bp.get('/logout')
 @auth.loginRequiredPage
 def logout(**kwargs):
@@ -53,3 +62,9 @@ def getDvds():
 @user_bp.get('/user/dvd/<id>/')
 def getDvd(id):
     return MovieDvdsController.getMovieDvd(id)
+
+@user_bp.get('/user/review/dvd-data/<id>')
+# @auth.loginRequiredApi
+def reviewPage(**kwargs):
+    id=kwargs.get('id')
+    return DvdReviewController.getDvdReviews(id)

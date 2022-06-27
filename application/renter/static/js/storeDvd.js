@@ -50,6 +50,10 @@ class StoreDvd {
       if (!movie.image_path || movie.image_path.length < 5) {
         movie.image_path = "/static/defaultImage/posterMovie.png";
       }
+      let disabledRent = "";
+      if (movie.available_stock < 1) {
+        disabledRent = "disabled";
+      }
       let template = `
           <div class="row card position-relative mx-3 py-1">
             <img src="/${movie.image_path}" class="card-img-top"  alt="Poster">
@@ -57,9 +61,11 @@ class StoreDvd {
               <h5 class="card-title">${movie.title}</h5>
               <p class="card-text">${movie.genre}</p>
               <p class="card-text">${movie.desc}</p>
+              <p class="card-text">${movie.desc}</p>
+
               <p class="card-text">Status : On Air</p>
-              <a href="#" class="btn btn-primary">Rent</a>
-              <a href="#" class="btn btn-warning">Review</a>
+              <a href="#" class="btn btn-primary" ${disabledRent}>Rent</a>
+              <a href=/review/dvd/${movie.id} class="btn btn-warning">Review</a>
             </div>
           </div>
       `;
