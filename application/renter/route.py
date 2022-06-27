@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template,session, redirect, url_for
 from .controllers.loginController import LoginController, pullNotif
 from .controllers.registerController import RegisterController
+from .controllers.movieDvdsController import MovieDvdsController
 
 user_bp=Blueprint(
     'user_bp', 
@@ -21,7 +22,7 @@ def loginPage(**kwargs):
 @user_bp.get('/home')
 @auth.loginRequiredPage
 def homePage(**kwargs):
-    return render_template('userMaster.html')
+    return render_template('movieDashboard.html')
 
 
 @user_bp.get('/register')
@@ -44,3 +45,11 @@ def cekLogin():
 @user_bp.post('/register')
 def registerUser(**kwargs):
     return RegisterController.insertUser()
+
+@user_bp.get('/user/dvd')
+def getDvds():
+    return MovieDvdsController.getMovieDvds()
+
+@user_bp.get('/user/dvd/<id>/')
+def getDvd(id):
+    return MovieDvdsController.getMovieDvd(id)
