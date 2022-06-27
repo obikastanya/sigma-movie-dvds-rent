@@ -1,33 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <div class="col-11">
-            {% if session.get('user_name') %}
-              
-            <a class="navbar-brand" href="/user">{{session.get('user_name')}}</a>
-              {% else %}
-              <a class="navbar-brand" href="/user">Anonymous User</a> 
-              {% endif %}
-              |
-            <a class="navbar-brand" href="/">Sigma DVDs Shop</a>
-        </div>
-        <div class="col-1">
-            <div class="text-right">
-              <a href="/cart">
-                <button type="button" class="btn btn-error position-relative">  
-                  <span 
-                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
-                    id="notifId"
-                    >0</span>Notif
-                  </button> 
-                </a>
-            </div>
-            
-        </div>
-      </div>
-    </div>
-  </nav>
-  
+{% include 'navbar.html' %}
   <input type="text" id="hiddenUserId" value={{session.get('user_id')}} hidden>
   <div class="pt-4 pl-5 col-sm-8">
     <div class="row p-5 m5">

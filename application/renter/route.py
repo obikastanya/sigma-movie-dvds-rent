@@ -34,6 +34,11 @@ def homePage(**kwargs):
 def registerPage(**kwargs):
     return render_template('registerUser.html')
 
+@user_bp.get('/notification')
+# @auth.noSessionRequiredPage
+def notifPage(**kwargs):
+    return render_template('notif.html')
+
 
 @user_bp.get('/review/dvd/<id>/')
 @auth.loginRequiredPage

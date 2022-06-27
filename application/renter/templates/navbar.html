@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-dark text-white bg-primary">
+    <div class="container-fluid">
+        <div class="col-11">
+            {% if session.get('user_name') %}
+              
+            <a class="navbar-brand" href="/profile">{{session.get('user_name')}}</a>
+              {% else %}
+              <a class="navbar-brand" href="/profile">Anonymous User</a> 
+              {% endif %}
+              |
+            <a class="navbar-brand" href="/home">Sigma DVDs Shop</a>
+        </div>
+        <div class="col-1">
+            <div class="text-right">
+
+            <a class="navbar-brand" href="/history">History</a>
+            
+              <a href="/notification">
+                <button type="button" class="btn btn-error position-relative text-white">  
+                  <span 
+                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+                    id="notifId"
+                    >0</span>Notif
+                  </button> 
+                </a>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </nav>

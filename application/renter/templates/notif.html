@@ -1,0 +1,17 @@
+{% extends 'base.html' %} {% block content %}
+  {% include 'navbar.html' %}
+  <input type="text" id="hiddenUserId" value={{session.get('user_id')}} hidden>
+  <div class="pt-4 px-5 col-sm-5">
+    <h3>All Notification</h3>
+      <div class="card" >
+        <div class="card-body">
+          <h5 class="card-title">Title</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+      </div>
+    </div>
+  {% endblock content %} {% block customBottomScripts %} 
+
+  <script src={{ url_for("user_bp.static", filename='js/profile.js')}}></script>
+
+{% endblock customBottomScripts %}
