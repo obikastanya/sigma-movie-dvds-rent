@@ -11,7 +11,7 @@ from app import db
 
 class RenterController:
     def rentDvd():
-        # try:
+        try:
             parameter=ParameterHandler.getInsertRentingParam()
             newRenterHead=MovieRenterHead(**parameter.get('head'))
             db.session.add(newRenterHead)
@@ -42,8 +42,8 @@ class RenterController:
             db.session.commit()
             return Resp.make(status=True, message="Transaction Success", data=[returnedData])
 
-        # except:
-        #     return Resp.make(status=True, message="Transaction Failed")
+        except:
+            return Resp.make(status=True, message="Transaction Failed")
 
     def getNominal():
         movieId=request.json.get("movieId")
@@ -60,6 +60,14 @@ class RenterController:
             price=0
         return duration.days*price
 
+    
+    def getRentHistory():
+        userId=request.json.get("userId")
+        data=QueryModel.getRentHistory({'id':userId})
+        jsonData=Resp.map(['id','start_date','due_date', 'shipping_destination','movie_id', 'title'],data)
+        resp=Resp.make(data=jsonData,status=True)
+        return resp
+    
 
 
 class ParameterHandler:
@@ -79,9 +87,15 @@ class ParameterHandler:
                 "ri_mrth_id":"",
                 "ri_status_bayar":"N"
             }
-
         }
 
-    
-
-
+class QueryModel:
+    def getRentHistory(parameter):
+        query="""
+        select mrth_id, to_char(mrth_rent_start_date, 'dd-mm-YYYY'), to_char(mrth_rent_due_date, 'dd-mm-YYYY'),
+        mrth_shipping_destination, mvd_id, mvd_title from movie_renter_head, 
+        movie_renter_detail, ms_movie_dvds,  ms_user, renter_invoices
+        where mrth_msu_id =msu_id and mrtd_mrth_id=mrth_id and mvd_id=mrtd_mvd_id and 
+        ri_mrth_id= mrth_id and ri_status_bayar='Y' and mrth_msu_id=:id
+        """
+        return db.session.execute(query, parameter)

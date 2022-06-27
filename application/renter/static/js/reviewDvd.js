@@ -61,8 +61,6 @@ class ReviewSubmit {
       desc: document.getElementById("reviewField").value,
       rate: document.querySelector('input[name="rate"]:checked').value,
     };
-    console.log(parameter);
-    return;
     fetch("/user/review/dvd-data", {
       method: "POST",
       headers: {

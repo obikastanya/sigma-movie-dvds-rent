@@ -87,3 +87,11 @@ def insertReview(**kwargs):
 # @auth.loginRequiredApi
 def rentDvd(**kwargs):
     return RenterController.rentDvd()
+
+
+@user_bp.post('/user/dvd/rent/history')
+# @auth.loginRequiredApi
+def rentDvdHistory(**kwargs):
+    return RenterController.getRentHistory()
+
+

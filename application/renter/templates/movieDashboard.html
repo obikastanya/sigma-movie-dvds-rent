@@ -4,16 +4,19 @@
         <div class="col-11">
             {% if session.get('user_name') %}
               
-            <a class="navbar-brand" href="/user">{{session.get('user_name')}}</a>
+            <a class="navbar-brand" href="/profile">{{session.get('user_name')}}</a>
               {% else %}
-              <a class="navbar-brand" href="/user">Anonymous User</a> 
+              <a class="navbar-brand" href="/profile">Anonymous User</a> 
               {% endif %}
               |
             <a class="navbar-brand" href="/">Sigma DVDs Shop</a>
         </div>
         <div class="col-1">
             <div class="text-right">
-              <a href="/cart">
+
+            <a class="navbar-brand" href="/history">History</a>
+            
+              <a href="/notification">
                 <button type="button" class="btn btn-error position-relative">  
                   <span 
                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
