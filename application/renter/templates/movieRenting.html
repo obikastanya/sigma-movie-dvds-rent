@@ -43,6 +43,7 @@
                 <tr><td width='150'>Release Date </td><td id="releaseDate">: -</td></tr>
                 <tr><td width='150'>Age Certification </td><td id="ageCertification">: -</td></tr>
                 <tr><td width='150'>Stock </td><td id="availableStock">: -</td></tr>
+                <tr><td width='150'>Rental Price/day </td><td id="price">: -</td></tr>
                 <tr><td width='150'>Description</td><td id="desc">: -</td></tr> 
               </tbody>
           </table>
@@ -53,12 +54,12 @@
 
           <div class="mb-3" hidden>
             <label for="userIdField" class="form-label" >User ID</label>
-            <input type="number" class="form-control" id="userIdField"disabled>
+            <input type="number" class="form-control" id="userIdField" value={{session.get('user_id')}} disabled>
           </div>
 
           <div class="mb-3">
-            <label for="idField" class="form-label" >Movie ID</label>
-            <input type="number" class="form-control" id="idField">
+            <label for="movieIdField" class="form-label" >Movie ID</label>
+            <input type="number" class="form-control" id="movieIdField" value={{id}} disabled>
           </div>
 
           <div class="mb-3" >
@@ -82,17 +83,11 @@
             ></textarea>
           </div>
 
-          <button type="submit" class="btn btn-primary" id="submitButtonId">Submit</button>
+          <button type="button" class="btn btn-primary" id="submitButtonId">Submit</button>
         </form>
         <hr>
-        <div class="invoicesNote">
-          <p>Invoices Id : 1234351</p>
-          <p>Payment Nominal : 25000</p>
-          <p>Bank Account  : 038922198572(BCA)</p>
-          <p>Pay before 22 Jun 2022</p>
-          <p>*Keep your invoices id, you gonna need it for payment validation.</p>
-          <p><a href="">Validate your payment here.</a> </p>
-        </div>
+        <div id="invoicesNote">
+          </div>
       </div>
   </div>
 

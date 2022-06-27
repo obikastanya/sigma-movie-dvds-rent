@@ -24,6 +24,7 @@ class RentingDvd {
     setValue("ageCertification", movie.age_certification);
     setValue("availableStock", movie.available_stock);
     setValue("desc", movie.desc);
+    setValue("price", movie.price);
   }
 }
 class RentingSubmit {
@@ -32,11 +33,13 @@ class RentingSubmit {
   }
   submit() {
     let parameter = {
-      movieId: document.getElementById("hiddenMovieId").value,
-      desc: document.getElementById("reviewField").value,
-      rate: document.querySelector('input[name="rate"]:checked').value,
+      movieId: document.getElementById("movieIdField").value,
+      userId: document.getElementById("userIdField").value,
+      startDate: document.getElementById("startDateField").value,
+      endDate: document.getElementById("endDateField").value,
+      address: document.getElementById("addressField").value,
     };
-    fetch("/user/review/dvd-data", {
+    fetch("/user/dvd/rent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -45,12 +48,22 @@ class RentingSubmit {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.status) {
-          new RentingDvd().render();
-        }
-
         alert(response.message);
+        if (response.status) {
+          this.showInvoices(response.data[0]);
+        }
       });
+  }
+  showInvoices(invoices) {
+    let invoicesTemplate = `
+          <p>Invoices Number : ${invoices.invoicesId}</p>
+          <p>Payment Nominal : ${invoices.nominal}</p>
+          <p>Bank Account  : ${invoices.bank}</p>
+          <p>Pay before ${invoices.payment_due}</p>
+          <p>*Keep your invoices id, you gonna need it for payment validation.</p>
+          <p><a href="">Validate your payment here.</a> </p>
+        `;
+    document.getElementById("invoicesNote").innerHTML = invoicesTemplate;
   }
 }
 
@@ -58,5 +71,5 @@ document.addEventListener("DOMContentLoaded", function () {
   new RentingDvd().render();
   document
     .getElementById("submitButtonId")
-    .addEventListener("click", new ReviewSubmit().submit);
+    .addEventListener("click", new RentingSubmit().submit);
 });

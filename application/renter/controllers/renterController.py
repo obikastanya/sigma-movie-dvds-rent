@@ -11,7 +11,7 @@ from app import db
 
 class RenterController:
     def rentDvd():
-        try:
+        # try:
             parameter=ParameterHandler.getInsertRentingParam()
             newRenterHead=MovieRenterHead(**parameter.get('head'))
             db.session.add(newRenterHead)
@@ -32,17 +32,18 @@ class RenterController:
             db.session.flush()
             
             dueDate=date.today() + timedelta(days=1)
-            dueDate=dueDate.strftime('%d-%m-%Y')
+            dueDate=dueDate.strftime('%d-%m-%Y 23:59')
             returnedData={
                 "invoicesId":newRenterInvoices.ri_id,
                 "nominal":nominal,
-                "payment_due":dueDate
+                "payment_due":dueDate,
+                'bank':'038922198572 (BCA)'
             }
             db.session.commit()
             return Resp.make(status=True, message="Transaction Success", data=[returnedData])
 
-        except:
-            return Resp.make(status=True, message="Transaction Failed")
+        # except:
+        #     return Resp.make(status=True, message="Transaction Failed")
 
     def getNominal():
         movieId=request.json.get("movieId")
