@@ -3,6 +3,7 @@ from .controllers.loginController import LoginController, pullNotif
 from .controllers.registerController import RegisterController
 from .controllers.movieDvdsController import MovieDvdsController
 from .controllers.dvdReviewsController import DvdReviewController
+from .controllers.renterController import RenterController
 
 user_bp=Blueprint(
     'user_bp', 
@@ -81,3 +82,8 @@ def reviewPage(**kwargs):
 # @auth.loginRequiredApi
 def insertReview(**kwargs):
     return DvdReviewController.insertReview()
+
+@user_bp.post('/user/dvd/rent')
+# @auth.loginRequiredApi
+def rentDvd(**kwargs):
+    return RenterController.rentDvd()
