@@ -108,4 +108,13 @@ def rentDvdHistory(**kwargs):
 def getInvoice(**kwargs):
     return InvoiceController.getInvoice()
 
+@user_bp.post('/user/payment/upload')
+def uploadPayment():
+    return InvoiceController.uploadImage()
+
+
+@user_bp.post('/user/payment/validate')
+def validatePayment():
+    return InvoiceController.validatePayment()
+
 

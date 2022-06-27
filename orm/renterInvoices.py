@@ -18,5 +18,5 @@ class RenterInvoices(db.Model):
 class RenterInvoicesSchema(Schema):
     ri_id = fields.Int(data_key='id')
     ri_mrth_id=fields.Int(data_key='transaction_id')
-    ri_nominal =fields.Int(data_key='Nominal')
+    ri_nominal =fields.Int(data_key='nominal')
     
