@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template,session, redirect, url_for
 from .controllers.loginController import LoginController, pullNotif
+from .controllers.registerController import RegisterController
 
 user_bp=Blueprint(
     'user_bp', 
@@ -39,3 +40,7 @@ def logout(**kwargs):
 @user_bp.post('/login')
 def cekLogin():
     return LoginController().login()
+
+@user_bp.post('/register')
+def registerUser(**kwargs):
+    return RegisterController.insertUser()

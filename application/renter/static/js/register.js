@@ -20,7 +20,16 @@ class Register {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(parameter),
-    });
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(response);
+        alert(response.message);
+        if (response.status) {
+          let redirect = (window.location.href = "/login");
+          setTimeout(redirect, 2000);
+        }
+      });
   }
   getRegistrationData() {
     let gender = "";
@@ -36,7 +45,7 @@ class Register {
       email: getValue("emailField"),
       gender: gender,
       name: getValue("nameField"),
-      name: getValue("addressField"),
+      address: getValue("addressField"),
       password: getValue("passwordField"),
       confirmPassword: getValue("passwordConfirmField"),
     };
