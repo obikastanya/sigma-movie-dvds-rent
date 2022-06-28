@@ -49,6 +49,10 @@ class ApiAction {
       id: getValue("idField"),
       desc: getValue("descField"),
     };
+    if (!parameter.desc) {
+      alert("Reason cant be empty");
+      return;
+    }
     fetch("/admin/api/user/ban", {
       method: "POST",
       headers: {
@@ -58,8 +62,12 @@ class ApiAction {
     })
       .then((response) => response.json())
       .then((response) => {
-        $("#datatable_id").DataTable().ajax.reload();
         alert(response.message);
+        $("#datatable_id").DataTable().ajax.reload();
+        if (response.status) {
+          $("#id_modal_for_edit").modal("hide");
+          document.getElementById("descField").value = "";
+        }
       });
   }
 }
