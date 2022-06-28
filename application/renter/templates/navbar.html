@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark text-white bg-primary">
     <div class="container-fluid">
-        <div class="col-11">
+        <div class="col-10">
             {% if session.get('user_name') %}
               
             <a class="navbar-brand" href="/profile">{{session.get('user_name')}}</a>
@@ -24,7 +24,10 @@
                   </button> 
                 </a>
             </div>
-            
+        </div>
+
+        <div class="col-1">
+          <a class="navbar-brand" href="/logout">Logout</a>
         </div>
       </div>
     </div>
