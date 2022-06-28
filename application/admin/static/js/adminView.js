@@ -6,7 +6,7 @@ class TableAction {
   }
   editData(event) {
     let id = event.target.getAttribute("data-id");
-    fetch("/admin/index/" + id)
+    fetch("/admin/api/index/" + id)
       .then((response) => response.json())
       .then((response) => {
         let admin = response.data[0];
@@ -23,7 +23,7 @@ class TableAction {
 
   deleteData(event) {
     let id = event.target.getAttribute("data-id");
-    fetch("/admin/index", {
+    fetch("/admin/api/index", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ class ApiAction {
     return this.updateAdminData(parameter);
   }
   saveAdminData(parameter) {
-    fetch("/admin/index", {
+    fetch("/admin/api/index", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -95,7 +95,7 @@ class ApiAction {
       });
   }
   updateAdminData(parameter) {
-    fetch("/admin/index", {
+    fetch("/admin/api/index", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -116,7 +116,7 @@ class DatatabaleComponent {
       processing: true,
       serverSide: true,
       ajax: {
-        url: "/admin/index",
+        url: "/admin/api/index",
         method: "GET",
         data: (data) => {
           const getDataFromFields = (id) => {

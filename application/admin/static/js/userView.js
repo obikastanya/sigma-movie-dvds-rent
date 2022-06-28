@@ -15,7 +15,7 @@ class TableAction {
     let parameter = {
       id: id,
     };
-    fetch("/admin/users/release", {
+    fetch("/admin/api/user/release", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ class ApiAction {
       id: getValue("idField"),
       desc: getValue("descField"),
     };
-    fetch("/admin/users/ban", {
+    fetch("/admin/api/user/ban", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ class DatatabaleComponent {
       processing: true,
       serverSide: true,
       ajax: {
-        url: "/admin/users",
+        url: "/admin/api/users",
         method: "GET",
         data: (data) => {
           const getDataFromFields = (id) => {

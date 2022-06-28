@@ -22,24 +22,23 @@ def loginPage(**kwargs):
     message=pullNotif()    
     return render_template('loginAdmin.html', message=message)
 
-@admin_bp.get('/home')
 @admin_bp.get('/')
+@admin_bp.get('/home')
+@admin_bp.get('/dvd-renter')
 @auth.loginRequiredPage
 def homePage(**kwargs):
     return render_template('dvdRenter.html')
 
-@admin_bp.get('/dvd-renter')
-@auth.loginRequiredPage
-def dvdRentPage(**kwargs):
-    return render_template('dvdRenter.html')
-
-
-@admin_bp.get('/movie-dvd')
+@admin_bp.get('/movies')
 @auth.loginRequiredPage
 def dvdMasterPage(**kwargs):
     return render_template('dvdMaster.html')
 
 
+@admin_bp.get('/index')
+@auth.loginRequiredPage
+def adminMasterPage(**kwargs):
+    return render_template('adminMaster.html')
 
 @admin_bp.get('/logout')
 @auth.loginRequiredPage
@@ -47,28 +46,67 @@ def logout(**kwargs):
     session.clear()
     return redirect(url_for('admin_bp.loginPage'))
 
-
-@admin_bp.get('/admin/')
-@auth.loginRequiredPage
-def adminMasterPage(**kwargs):
-    return render_template('adminMaster.html')
-
-@admin_bp.get('/user-data')
-@auth.loginRequiredPage
-def userMasterPage(**kwargs):
-    return render_template('userMaster.html')
-
-@admin_bp.get('/dvd/reviews/data/<id>')
+@admin_bp.get('/review/<id>')
 @auth.loginRequiredPage
 def dvdMasterReviewPage(**kwargs):
     id=kwargs.get('id')
     return render_template('dvdMasterReview.html', id=id)
 
-#invoices
 @admin_bp.get('/invoices')
 @auth.loginRequiredPage
 def invoicesPage(**kwargs):
     return render_template('renterInvoices.html')
+
+@admin_bp.get('/users')
+@auth.loginRequiredPage
+def userMasterPage(**kwargs):
+    return render_template('userMaster.html')
+
+
+
+# API
+# ----------------- users api
+
+@admin_bp.get('/api/users')
+def getUsers():
+    return UserController.getUsers()
+
+@admin_bp.post('/api/user/ban')
+def banUser():
+    return UserController.banUser()
+
+@admin_bp.post('/api/user/release')
+def releaseUser():
+    return UserController.releaseUserBan()
+
+
+
+# ---------------- admin
+
+@admin_bp.get('/api/index')
+def getAdmins():
+    return AdminController.getAdmins()
+
+@admin_bp.post('/api/index')
+def insertAdmin():
+    return AdminController.insertAdmin()
+
+@admin_bp.put('/api/index')
+def updateAdmin():
+    return AdminController.updateAdmin()
+
+@admin_bp.delete('/api/index')
+def softDeleteAdmin():
+    return AdminController.softDeleteAdmin()
+
+@admin_bp.get('/api/index/<id>')
+def getAdmin(id):
+    return AdminController.getAdmin(id)
+
+
+
+# API
+# ----------------- invoices api
 
 @admin_bp.get('/invoices/data')
 # @auth.loginRequiredApi
@@ -89,45 +127,10 @@ def cekLogin():
 
 
 # --- admin
-@admin_bp.get('/index')
-def getAdmins():
-    return AdminController.getAdmins()
-
-@admin_bp.get('/index/<id>')
-def getAdmin(id):
-    return AdminController.getAdmin(id)
-
-
-@admin_bp.post('/index')
-def insertAdmin():
-    return AdminController.insertAdmin()
-
-@admin_bp.put('/index')
-def updateAdmin():
-    return AdminController.updateAdmin()
-
-@admin_bp.delete('/index')
-def softDeleteAdmin():
-    return AdminController.softDeleteAdmin()
-
 # --- user
 
-@admin_bp.get('/users')
-def getUsers():
-    return UserController.getUsers()
 
 
-@admin_bp.post('/users/ban')
-def banUser():
-    return UserController.banUser()
-
-@admin_bp.post('/users/release')
-def releaseUser():
-    return UserController.releaseUserBan()
-
-@admin_bp.put('/user/ban-release')
-def releaseUserBan():
-    pass
 
 # --- movie dvds
 
