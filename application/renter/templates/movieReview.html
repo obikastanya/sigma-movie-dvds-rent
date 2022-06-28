@@ -60,7 +60,7 @@
         <button type="button" class="btn btn-primary w-auto" id="submitButtonId">Submit</button>
       </div>
       <hr>
-      <div className="row mt-5 ml-5" >
+      <div className="row mt-5 ml-5 mb-5" >
         
         <div className="col-sm-8 pb-5" id="reviewContainerId">
         </div>
@@ -69,7 +69,8 @@
 
 
   {% endblock content %} {% block customBottomScripts %} 
-  {% include 'notifAjax.html' %}
+
+  {% include 'notifAjax.html' %}  
   <script src={{ url_for("user_bp.static", filename='js/reviewDvd.js')}}></script>
 
 {% endblock customBottomScripts %}

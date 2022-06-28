@@ -7,15 +7,16 @@ class ReviewDvd {
     fetch(`/user/review/dvd-data/${id}`)
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         let reviews = this.createReview(response.data);
         if (!reviews.length) {
           document.getElementById("reviewContainerId").innerHTML =
             "<p>No reviews yet.</p>";
-          return;
+        } else {
+          document.getElementById("reviewContainerId").innerHTML =
+            reviews.join("");
         }
         this.setMovieDetail(response.movieData);
-        document.getElementById("reviewContainerId").innerHTML =
-          reviews.join("");
       });
   }
   setMovieDetail(movie) {
