@@ -58,6 +58,7 @@ class ApiAction {
   constructor() {
     this.saveData = this.saveData.bind(this);
     this.updateData = this.updateData.bind(this);
+    this.saveAdminData = this.saveAdminData.bind(this);
   }
   saveData() {
     let getValue = (id) => document.getElementById(id).value;
@@ -67,7 +68,17 @@ class ApiAction {
       password: getValue("passwordField"),
       email: getValue("emailField"),
     };
+    if (!(parameter.password && parameter.name && parameter.email)) {
+      alert("Please complete the form");
+      return;
+    }
     return this.saveAdminData(parameter);
+  }
+  setEmptyForm() {
+    let setValue = (id) => (document.getElementById(id).value = "");
+    setValue("nameField");
+    setValue("passwordField");
+    setValue("emailField");
   }
   updateData() {
     let getValue = (id) => document.getElementById(id).value;
@@ -78,6 +89,10 @@ class ApiAction {
       email: getValue("emailFieldUpd"),
       id: getValue("idFieldUpd"),
     };
+    if (!(parameter.name && parameter.email)) {
+      alert("Please complete the form");
+      return;
+    }
     return this.updateAdminData(parameter);
   }
   saveAdminData(parameter) {
@@ -92,6 +107,9 @@ class ApiAction {
       .then((response) => {
         $("#admin_datatable_id").DataTable().ajax.reload();
         alert(response.message);
+        if (response.status) {
+          this.setEmptyForm();
+        }
       });
   }
   updateAdminData(parameter) {
@@ -106,6 +124,9 @@ class ApiAction {
       .then((response) => {
         $("#admin_datatable_id").DataTable().ajax.reload();
         alert(response.message);
+        if (response.status) {
+          document.getElementById("modal_edit_close_button").click();
+        }
       });
   }
 }
