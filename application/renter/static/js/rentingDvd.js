@@ -39,6 +39,17 @@ class RentingSubmit {
       endDate: document.getElementById("endDateField").value,
       address: document.getElementById("addressField").value,
     };
+    if (
+      !(
+        parameter.startDate &&
+        parameter.endDate &&
+        parameter.address &&
+        parameter.movieId
+      )
+    ) {
+      alert("Please complete the form");
+      return;
+    }
     fetch("/api/movie/rent", {
       method: "POST",
       headers: {

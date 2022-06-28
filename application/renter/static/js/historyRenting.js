@@ -40,6 +40,10 @@ class PaymentValidate {
     let parameter = {
       invoiceId: document.getElementById("invoiceIdField").value,
     };
+    if (!parameter.invoiceId) {
+      alert("Invoice Id is empty");
+      return;
+    }
     fetch("/api/rent/invoice", {
       method: "POST",
       headers: {
@@ -60,7 +64,10 @@ class PaymentValidate {
       transactionDate: document.getElementById("transactionDateField").value,
       invoiceId: document.getElementById("invoiceIdField").value,
     };
-
+    if (!parameter.transactionDate) {
+      alert("Transaction date cant be empty");
+      return;
+    }
     const selectedFile = document.getElementById("paymentReceiptField")
       .files[0];
     if (!selectedFile) {
