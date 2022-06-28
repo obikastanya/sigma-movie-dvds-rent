@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-{% include 'navbar.html' %}
+{% include 'notifAjax.html' %}
   <input type="text" id="hiddenUserId" value={{session.get('user_id')}} hidden>
   <div class="pt-4 pl-5 col-sm-8">
     <div class="row p-5 m5">
@@ -39,9 +39,8 @@
     </div>
   </div>
 
-
   {% endblock content %} {% block customBottomScripts %} 
-
+  {% include 'notifAjax.html' %}
   <script src={{ url_for("user_bp.static", filename='js/historyRenting.js')}}></script>
 
 {% endblock customBottomScripts %}

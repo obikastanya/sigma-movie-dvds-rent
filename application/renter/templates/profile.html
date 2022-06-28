@@ -141,7 +141,7 @@
 
 
   {% endblock content %} {% block customBottomScripts %} 
-
+  {% include 'notifAjax.html' %}
   <script src={{ url_for("user_bp.static", filename='js/profile.js')}}></script>
 
 {% endblock customBottomScripts %}

@@ -1,4 +1,5 @@
 import os
+import re
 from flask import request
 from werkzeug.utils import secure_filename
 from lib.response import Resp
@@ -19,9 +20,20 @@ class AlertController:
         userJson.update({'alerts': jsonAlertsData})
         resp=Resp.make(data=[userJson],status=True)
         return resp
-    
+
+    def getAlertCount():
+        id=request.json.get('userId')
+        data=QueryModel.getAlertCount(id)
+        jsonData=Resp.map(['total'],data)
+        return Resp.make(status=True, data=jsonData)
+
+
     def updateAlertStatus(alerts):
         for alert in alerts:
             alert.al_read_status='Y'
             db.session.commit()
-    
+
+class QueryModel:
+    def getAlertCount(id):
+        query="""select count(al_id) from user_alert where al_read_status='N' and al_msu_id=:id"""
+        return db.session.execute(query, {'id':id})

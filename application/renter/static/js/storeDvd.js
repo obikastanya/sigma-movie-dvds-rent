@@ -55,7 +55,7 @@ class StoreDvd {
         disabledRent = "disabled";
       }
       let template = `
-          <div class="row card position-relative mx-3 py-1">
+          <div class="row card position-relative mx-3 py-1 mt-3 mb-3">
             <img src="/${movie.image_path}" class="card-img-top"  alt="Poster">
             <div class="card-body">
               <h5 class="card-title">${movie.title}</h5>

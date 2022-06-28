@@ -122,6 +122,11 @@ def rentDvdHistory(**kwargs):
 def getAlert(**kwargs):
     return AlertController.getAlerts()
 
+@user_bp.post('/alert/count')
+# @auth.loginRequiredApi
+def getAlertCount(**kwargs):
+    return AlertController.getAlertCount()
+
 
 @user_bp.post('/user/dvd/rent/invoices')
 # @auth.loginRequiredApi
