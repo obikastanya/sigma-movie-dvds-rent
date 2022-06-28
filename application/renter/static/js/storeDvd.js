@@ -63,7 +63,7 @@ class StoreDvd {
               <p class="card-text">${movie.desc}</p>
               <p class="card-text"> Available : ${movie.available_stock} dvds</p>
               <p class="card-text">Status : On Air</p>
-              <a href="/dvd/rent/${movie.id}" class="btn btn-primary" ${disabledRent}>Rent</a>
+              <a href="/dvd/rent/${movie.id}" class="btn btn-primary  ${disabledRent}">Rent</a>
               <a href=/review/dvd/${movie.id} class="btn btn-warning">Review</a>
             </div>
           </div>
