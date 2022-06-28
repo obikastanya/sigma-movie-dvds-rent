@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
 app.secret_key= Config.appSecretKey
 app.config['SESSION_COOKIE_HTTPONLY']=False
 app.config['SESSION_COOKIE_NAME']='sigma_movie'
-app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=30)
+app.config['PERMANENT_SESSION_LIFETIME'] =  timedelta(minutes=60)
 
 db= SQLAlchemy(app)
 migrate=Migrate(app,db)

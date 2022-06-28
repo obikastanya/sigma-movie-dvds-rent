@@ -161,7 +161,7 @@ def validateInvoice(**kwargs):
 
 
 # ----------------- login
-@admin_bp.post('/api/login')
+@admin_bp.post('/login')
 def cekLogin():
     return LoginController().login()
 

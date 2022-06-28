@@ -80,6 +80,8 @@ class ApiAction {
       release_date: getValue("releaseDateField"),
       title: getValue("titleField"),
       total_dvds: getValue("totalDvdField"),
+      price: getValue("priceField"),
+      on_air_status: getValue("onAirStatusField") ? "Y" : "N",
     };
     const selectedFile = document.getElementById("posterField").files[0];
     if (!selectedFile) {
@@ -108,7 +110,7 @@ class ApiAction {
       title: getValue("titleFieldUpd"),
       total_dvds: getValue("totalDvdFieldUpd"),
     };
-    const selectedFile = document.getElementById("posterField").files[0];
+    const selectedFile = document.getElementById("posterFieldUpd").files[0];
     if (selectedFile) {
       this.uploadUpdateFile(selectedFile).then((response) => {
         if (response.status) {

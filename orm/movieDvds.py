@@ -9,7 +9,7 @@ class MovieDvds(db.Model):
     mvd_release_date = db.Column(db.Date(), nullable=False)
     mvd_age_certification =db.Column(db.Integer(), nullable=False)
     mvd_genre =db.Column(db.String(50), nullable=False)
-    mvd_on_air_status =db.Column(db.String(50))
+    mvd_on_air_status =db.Column(db.String(1))
     mvd_total_dvds =db.Column(db.Integer(), nullable=False)
     mvd_available_stock =db.Column(db.Integer(), nullable=False)
     mvd_price=db.Column(db.Integer())
@@ -24,8 +24,6 @@ class MovieDvds(db.Model):
     movie_dvds_movie_returned_detail=db.relationship('MovieReturnedDetail', backref='movie_dvds_movie_returned_detail')
     movie_dvds_movie_renter_detail=db.relationship('MovieRenterDetail', backref='movie_dvds_movie_renter_detail')
     
-
-
 class MovieDvdsSchema(Schema):
     __tablename__='ms_movie_dvds'
     mvd_id =fields.Int(data_key='id')

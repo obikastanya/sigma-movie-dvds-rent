@@ -87,7 +87,7 @@ class MovieDvdsController:
         try:
             file = request.files['file']
             file.save(os.path.join('static/file_storage', secure_filename(file.filename)))
-            return Resp.make(status=True, message='Upload Success', data=[{'filename':'static/file_storage/'+file.filename}])
+            return Resp.make(status=True, message='Upload Success', data=[{'filename':'static/file_storage/'+secure_filename(file.filename)}])
         except:
             Resp.make(message='Upload fail')
 
@@ -114,6 +114,8 @@ class MovieDvdsParameterHandler:
         'mvd_total_dvds':rawData.get('total_dvds'),
         'mvd_available_stock':rawData.get('available_stock'),
         'mvd_image_path':rawData.get('image_path'),
+        'mvd_price':rawData.get('price'),
+        'mvd_on_air_status':rawData.get('on_air_status'),
         'mvd_active_status':'Y'
         }
     def getUpdateParameter():
