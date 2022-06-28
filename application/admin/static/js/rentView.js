@@ -5,7 +5,7 @@ class TableAction {
 
   alertUser(event) {
     let id = event.target.getAttribute("data-user-id");
-    fetch("/admin/dvd-renter/alert", {
+    fetch("/admin/api/renter/alert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -28,7 +28,7 @@ class DatatabaleComponent {
       processing: true,
       serverSide: true,
       ajax: {
-        url: "/admin/dvd-renter/data",
+        url: "/admin/api/renter",
         method: "GET",
       },
       columns: [
@@ -57,7 +57,7 @@ class DatatabaleComponent {
           render: (data) => {
             let disabled = "";
             if (data.due_status == "N") {
-              // disabled = "disabled";
+              disabled = "disabled";
             }
             let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-user-id=${data.user_id} onClick='new TableAction().alertUser(event)' ${disabled}>Alert</button>`;
             return buttonDelete;

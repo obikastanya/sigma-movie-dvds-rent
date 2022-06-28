@@ -5,7 +5,7 @@ class TableAction {
   deleteData(event) {
     let userId = event.target.getAttribute("data-user-id");
     let movieId = event.target.getAttribute("data-id");
-    fetch("/admin/dvd/reviews", {
+    fetch("/admin/api/review", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ class DatatabaleComponent {
       processing: true,
       serverSide: true,
       ajax: {
-        url: "/admin/dvd/reviews/" + id,
+        url: "/admin/api/review/" + id,
         method: "GET",
       },
       columns: [

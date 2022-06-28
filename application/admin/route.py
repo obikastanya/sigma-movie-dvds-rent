@@ -68,14 +68,17 @@ def userMasterPage(**kwargs):
 # ----------------- users api
 
 @admin_bp.get('/api/users')
+@auth.loginRequiredApi
 def getUsers():
     return UserController.getUsers()
 
 @admin_bp.post('/api/user/ban')
+@auth.loginRequiredApi
 def banUser():
     return UserController.banUser()
 
 @admin_bp.post('/api/user/release')
+@auth.loginRequiredApi
 def releaseUser():
     return UserController.releaseUserBan()
 
@@ -84,98 +87,105 @@ def releaseUser():
 # ---------------- admin
 
 @admin_bp.get('/api/index')
+@auth.loginRequiredApi
 def getAdmins():
     return AdminController.getAdmins()
 
 @admin_bp.post('/api/index')
+@auth.loginRequiredApi
 def insertAdmin():
     return AdminController.insertAdmin()
 
 @admin_bp.put('/api/index')
+@auth.loginRequiredApi
 def updateAdmin():
     return AdminController.updateAdmin()
 
 @admin_bp.delete('/api/index')
+@auth.loginRequiredApi
 def softDeleteAdmin():
     return AdminController.softDeleteAdmin()
 
 @admin_bp.get('/api/index/<id>')
-def getAdmin(id):
+@auth.loginRequiredApi
+def getAdmin(**kwargs):
+    id=kwargs.get('id')
     return AdminController.getAdmin(id)
 
 
 #------------- movie dvd
 @admin_bp.get('/api/movie')
+@auth.loginRequiredApi
 def getDvds():
     return MovieDvdsController.getMovieDvds()
 
 @admin_bp.put('/api/movie')
+@auth.loginRequiredApi
 def updateDvd():
     return MovieDvdsController.updateMovieDvd()
 
 @admin_bp.delete('/api/movie')
+@auth.loginRequiredApi
 def softDeleteDvd():
     return MovieDvdsController.softDeleteMovieDvd()
 
 @admin_bp.post('/api/movie')
+@auth.loginRequiredApi
 def insertDvd():
     return MovieDvdsController.insertMovieDvd()
 
 @admin_bp.get('/api/movie/<id>/')
-def getDvd(id):
+@auth.loginRequiredApi
+def getDvd(**kwargs):
+    id=kwargs.get('id')
     return MovieDvdsController.getMovieDvd(id)
 
 
 @admin_bp.post('/api/movie/upload')
+@auth.loginRequiredApi
 def uploadImageDvd():
     return MovieDvdsController.uploadImage()
 
 
-# ----------------- invoices api
+# ----------------- invoices
 
-@admin_bp.get('/invoices/data')
-# @auth.loginRequiredApi
+@admin_bp.get('/api/invoices')
+@auth.loginRequiredApi
 def getInvoices(**kwargs):
     return InvoiceController.getInvoices()
 
-@admin_bp.post('/invoices/data/validate')
-# @auth.loginRequiredApi
+@admin_bp.post('/api/invoices/validate')
+@auth.loginRequiredApi
 def validateInvoice(**kwargs):
     return InvoiceController.validatePayment()
 
-# api
-# ---login
 
-@admin_bp.post('/login')
+# ----------------- login
+@admin_bp.post('/api/login')
 def cekLogin():
     return LoginController().login()
 
+# ------------------ reviews
 
-# --- admin
-# --- user
-
-
-# reviews
-@admin_bp.get('/dvd/reviews/<id>')
-def getDvdReviews(id):
-    return DvdReviewController.getDvdReviews(id)
-
-@admin_bp.delete('/dvd/reviews')
+@admin_bp.delete('/api/review')
+@auth.loginRequiredApi
 def deleteDvdReviews():
     return DvdReviewController.deleteDvdReviews()
 
-# renter
-@admin_bp.get('/dvd-renter/data')
+@admin_bp.get('/api/review/<id>')
+@auth.loginRequiredApi
+def getDvdReviews(id):
+    return DvdReviewController.getDvdReviews(id)
+
+
+# ----------- renter
+@admin_bp.get('/api/renter')
+@auth.loginRequiredApi
 def getRenters():
     return RenterHeadController.getRenters()
 
-
-# renter
-@admin_bp.post('/dvd/renter/alert')
+@admin_bp.post('/api/renter/alert')
+@auth.loginRequiredApi
 def alertRenters():
     return RenterHeadController.alert()
-
-
-# mail
-
 

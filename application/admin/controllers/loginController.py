@@ -11,25 +11,24 @@ def pullNotif():
 
 class LoginController:
     def login(self):
-        # try:
-        adminLogin=dict(request.form)
-        print(adminLogin)
-        admin=Admin.query.filter_by(msa_email=adminLogin.get('email')).first()
-        # default error message
-        if not admin:
+        try:
+            adminLogin=dict(request.form)
+            admin=Admin.query.filter_by(msa_email=adminLogin.get('email')).first()
+            # default error message
+            if not admin:
+                session['message']='Incorrect email or password'
+                return redirect(url_for('admin_bp.loginPage'))       
+
+            if  bcrypt.checkpw(adminLogin.get('password').encode('utf-8'), admin.msa_password.encode('utf-8')):
+                # success login
+                self.createSession(admin)
+                return redirect(url_for('admin_bp.homePage')) 
+
             session['message']='Incorrect email or password'
             return redirect(url_for('admin_bp.loginPage'))       
-
-        if  bcrypt.checkpw(adminLogin.get('password').encode('utf-8'), admin.msa_password.encode('utf-8')):
-            # success login
-            self.createSession(admin)
-            return redirect(url_for('admin_bp.homePage')) 
-
-        session['message']='Incorrect email or password'
-        return redirect(url_for('admin_bp.loginPage'))       
-        # except:
-        #     session['message']='Login Failed'
-        #     return redirect(url_for('admin_bp.loginPage')) 
+        except:
+            session['message']='Login Failed'
+            return redirect(url_for('admin_bp.loginPage')) 
             
     def createSession(self,admin):
         session['admin_id']=admin.msa_id
@@ -50,7 +49,6 @@ class LoginController:
         @wraps(func)
         def decorated(**kwargs):
             try:
-                print('session data',session)
                 if not session.get('admin_id'):
                     session['message']='You need to login first'
                     return redirect(url_for('admin_bp.loginPage')) 

@@ -13,7 +13,7 @@ class TableAction {
   validatePayment(event) {
     let id = event.target.getAttribute("data-id");
     console.log(id);
-    fetch("/admin/invoices/data/validate", {
+    fetch("/admin/api/invoices/validate", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +36,7 @@ class DatatabaleComponent {
       processing: true,
       serverSide: true,
       ajax: {
-        url: "/admin/invoices/data",
+        url: "/admin/api/invoices",
         method: "GET",
       },
       columns: [
