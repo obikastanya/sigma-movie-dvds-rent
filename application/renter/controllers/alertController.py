@@ -11,11 +11,10 @@ class AlertController:
 
     def getAlerts():
         id=request.json.get('userId')
-        print(id)
         user=User.query.filter_by(msu_id=id).first()
         userJson=UserSchema().dump(user)
         alerts=Alert.query.filter(Alert.al_read_status=='N', Alert.al_msu_id==id ).all()
-        # AlertController.updateAlertStatus(alerts)
+        AlertController.updateAlertStatus(alerts)
         jsonAlertsData=AlertSchema(many=True).dump(alerts)
         userJson.update({'alerts': jsonAlertsData})
         resp=Resp.make(data=[userJson],status=True)

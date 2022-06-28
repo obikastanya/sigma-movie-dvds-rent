@@ -13,7 +13,6 @@ class UserOnBan(db.Model):
     uob_update_date = db.Column(db.Date())
     uob_update_user = db.Column(db.String(30))
 
-
 class UserOnBanSchema(Schema):
     # ban status = R= Release B=Ban
     uob_id =fields.Int(data_key='id')

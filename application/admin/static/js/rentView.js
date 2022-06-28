@@ -5,12 +5,17 @@ class TableAction {
 
   alertUser(event) {
     let id = event.target.getAttribute("data-user-id");
+    let movie = event.target.getAttribute("data-movie");
+    let dueDate = event.target.getAttribute("");
+    let message = `
+    The deadline for borrowing the dvd (${movie}) has expired on ${dueDate}. Please return the book as soon as possible.
+    `;
     fetch("/admin/api/renter/alert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ userId: id }),
+      body: JSON.stringify({ userId: id, message: message }),
     })
       .then((response) => response.json())
       .then((response) => {
@@ -55,11 +60,20 @@ class DatatabaleComponent {
         {
           data: null,
           render: (data) => {
+            let titles = [];
+            for (let movie of data.movie) {
+              titles.push(movie[1]);
+            }
+
             let disabled = "";
             if (data.due_status == "N") {
               disabled = "disabled";
             }
-            let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-user-id=${data.user_id} onClick='new TableAction().alertUser(event)' ${disabled}>Alert</button>`;
+            let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-user-id=${
+              data.user_id
+            } data-due-date=${data.rent_due_date} data-movie=${titles.join(
+              ","
+            )} onClick='new TableAction().alertUser(event)' ${disabled}>Alert</button>`;
             return buttonDelete;
           },
         },
