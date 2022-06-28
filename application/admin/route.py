@@ -104,8 +104,33 @@ def getAdmin(id):
     return AdminController.getAdmin(id)
 
 
+#------------- movie dvd
+@admin_bp.get('/api/movie')
+def getDvds():
+    return MovieDvdsController.getMovieDvds()
 
-# API
+@admin_bp.put('/api/movie')
+def updateDvd():
+    return MovieDvdsController.updateMovieDvd()
+
+@admin_bp.delete('/api/movie')
+def softDeleteDvd():
+    return MovieDvdsController.softDeleteMovieDvd()
+
+@admin_bp.post('/api/movie')
+def insertDvd():
+    return MovieDvdsController.insertMovieDvd()
+
+@admin_bp.get('/api/movie/<id>/')
+def getDvd(id):
+    return MovieDvdsController.getMovieDvd(id)
+
+
+@admin_bp.post('/api/movie/upload')
+def uploadImageDvd():
+    return MovieDvdsController.uploadImage()
+
+
 # ----------------- invoices api
 
 @admin_bp.get('/invoices/data')
@@ -128,36 +153,6 @@ def cekLogin():
 
 # --- admin
 # --- user
-
-
-
-
-# --- movie dvds
-
-@admin_bp.get('/dvd')
-def getDvds():
-    return MovieDvdsController.getMovieDvds()
-
-@admin_bp.get('/dvd/<id>/')
-def getDvd(id):
-    return MovieDvdsController.getMovieDvd(id)
-
-@admin_bp.put('/dvd')
-def updateDvd():
-    return MovieDvdsController.updateMovieDvd()
-
-@admin_bp.delete('/dvd')
-def softDeleteDvd():
-    return MovieDvdsController.softDeleteMovieDvd()
-
-@admin_bp.post('/dvd')
-def insertDvd():
-    return MovieDvdsController.insertMovieDvd()
-
-
-@admin_bp.post('/dvd/upload')
-def uploadImageDvd():
-    return MovieDvdsController.uploadImage()
 
 
 # reviews

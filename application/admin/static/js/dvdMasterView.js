@@ -6,7 +6,7 @@ class TableAction {
   }
   editData(event) {
     let idMovie = event.target.getAttribute("data-id");
-    fetch("/admin/dvd/" + idMovie)
+    fetch("/admin/api/movie/" + idMovie)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
@@ -32,7 +32,7 @@ class TableAction {
 
   deleteData(event) {
     let idMovie = event.target.getAttribute("data-id");
-    fetch("/admin/dvd", {
+    fetch("/admin/api/movie", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +124,7 @@ class ApiAction {
     }
   }
   saveDvdData(parameter) {
-    fetch("/admin/dvd", {
+    fetch("/admin/api/movie", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -140,13 +140,13 @@ class ApiAction {
   async uploadFile(file) {
     let formData = new FormData();
     formData.append("file", file);
-    return await fetch("/admin/dvd/upload", {
+    return await fetch("/admin/api/movie/upload", {
       method: "POST",
       body: formData,
     }).then((response) => response.json());
   }
   updateDvdData(parameter) {
-    fetch("/admin/dvd", {
+    fetch("/admin/api/movie", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -162,7 +162,7 @@ class ApiAction {
   async uploadUpdateFile(file) {
     let formData = new FormData();
     formData.append("file", file);
-    return await fetch("/admin/dvd/upload", {
+    return await fetch("/admin/api/movie/upload", {
       method: "POST",
       body: formData,
     }).then((response) => response.json());
@@ -175,7 +175,7 @@ class DatatabaleMovie {
       processing: true,
       serverSide: true,
       ajax: {
-        url: "/admin/dvd",
+        url: "/admin/api/movie",
         method: "GET",
         data: (data) => {
           const getDataFromFields = (id) => {
@@ -205,7 +205,7 @@ class DatatabaleMovie {
         {
           data: null,
           render: (data) => {
-            let showReviews = `<a class="btn btn-primary" href="/admin/dvd/reviews/data/${data.id}" role="button">Reviews</a>`;
+            let showReviews = `<a class="btn btn-primary" href="/admin/review/${data.id}" role="button">Reviews</a>`;
             let buttonEdit = `<button type="button" class="btn btn-warning btn-edit-data" data-id=${data.id} onClick='new TableAction().editData(event)' >Edit</button>`;
             let buttonDelete = `<button type="button" class="btn btn-danger btn-delete-data" data-id=${data.id} onClick='new TableAction().deleteData(event)'>Delete</button>`;
             return (
