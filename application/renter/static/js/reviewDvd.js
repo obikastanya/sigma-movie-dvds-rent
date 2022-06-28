@@ -57,11 +57,20 @@ class ReviewSubmit {
     this.submit = this.submit.bind(this);
   }
   submit() {
+    let rate = null;
+    try {
+      rate = document.querySelector('input[name="rate"]:checked').value;
+    } catch {}
     let parameter = {
       movieId: document.getElementById("hiddenMovieId").value,
       desc: document.getElementById("reviewField").value,
-      rate: document.querySelector('input[name="rate"]:checked').value,
+      rate: rate,
     };
+    if (!(parameter.desc && parameter.rate)) {
+      alert("Cant submit empty review.");
+      return;
+    }
+
     fetch("/api/review/movie", {
       method: "POST",
       headers: {

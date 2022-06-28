@@ -52,6 +52,20 @@ class Profile {
       newPassword: getValue("newpasswordField"),
       newPasswordConfirm: getValue("newPasswordConfirmField"),
     };
+
+    for (let [key, value] of Object.entries(parameter)) {
+      if (
+        ["userId", "password", "newPassword", "newPasswordConfirm"].includes(
+          key
+        )
+      )
+        continue;
+      if ([null, undefined, ""].includes(value)) {
+        alert("Please Complete the form");
+        return;
+      }
+    }
+
     if (!parameter.password) {
       alert("Password is required to make a change");
       return;
