@@ -23,6 +23,7 @@ def loginPage(**kwargs):
     return render_template('loginAdmin.html', message=message)
 
 @admin_bp.get('/home')
+@admin_bp.get('/')
 @auth.loginRequiredPage
 def homePage(**kwargs):
     return render_template('dvdRenter.html')

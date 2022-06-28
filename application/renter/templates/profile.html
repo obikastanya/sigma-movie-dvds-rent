@@ -88,16 +88,31 @@
           ></textarea>
         </div>
         <div class="mb-3">
+          <label for="oldPasswordField" class="form-label"
+            >Old Password</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Password"
+            required
+            id="oldPasswordField"
+          />
+          <div id="emailHelp" class="form-text">Input your password to make a change</div>
+  
+        </div>
+        <div class="mb-3">
           <label for="newpasswordField" class="form-label"
             >New Password</label
           >
           <input
             type="password"
             class="form-control"
-            name="password"
+            name="newPassword"
             placeholder="Confirm Password"
-            required
             id="newpasswordField"
+            required
           />
         </div>
         <div class="mb-3">
@@ -107,10 +122,10 @@
           <input
             type="password"
             class="form-control"
-            name="password"
+            name="newPasswordConfirm"
             placeholder="Confirm Password"
             required
-            id="passwordConfirmField"
+            id="newPasswordConfirmField"
           />
         </div>
 

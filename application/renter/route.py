@@ -24,6 +24,7 @@ def loginPage(**kwargs):
     return render_template('loginUser.html', message=message)
 
 @user_bp.get('/home')
+@user_bp.get('/')
 @auth.loginRequiredPage
 def homePage(**kwargs):
     return render_template('movieDashboard.html')
@@ -127,6 +128,10 @@ def uploadPayment():
 @user_bp.post('/user/index')
 def getUser():
     return UserController.getUser()
+
+@user_bp.put('/user/index')
+def updateUser():
+    return UserController.updateUser()
 
 
 @user_bp.post('/user/payment/validate')
