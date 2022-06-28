@@ -110,7 +110,7 @@ class QueryModel:
         movie_renter_detail, ms_movie_dvds,  ms_user, renter_invoices
         where mrth_msu_id =msu_id and mrtd_mrth_id=mrth_id and mvd_id=mrtd_mvd_id and 
         ri_mrth_id= mrth_id and ri_status_bayar='Y' 
-        -- and mrth_msu_id=:id
+        and mrth_msu_id=:id
         """
         return db.session.execute(query, parameter)
     
