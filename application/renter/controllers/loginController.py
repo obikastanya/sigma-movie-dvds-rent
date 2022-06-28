@@ -61,7 +61,6 @@ class LoginController:
         @wraps(func)
         def decorated(**kwargs):
             try:
-                print('session data',session)
                 if not session.get('user_id'):
                     session['message']='You need to login first'
                     return redirect(url_for('user_bp.loginPage')) 

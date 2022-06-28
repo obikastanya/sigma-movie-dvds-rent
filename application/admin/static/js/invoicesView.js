@@ -12,7 +12,6 @@ class TableAction {
 
   validatePayment(event) {
     let id = event.target.getAttribute("data-id");
-    console.log(id);
     fetch("/admin/api/invoices/validate", {
       method: "POST",
       headers: {

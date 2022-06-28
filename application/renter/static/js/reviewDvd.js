@@ -7,7 +7,6 @@ class ReviewDvd {
     fetch(`/api/review/movie/${id}`)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         let reviews = this.createReview(response.data);
         if (!reviews.length) {
           document.getElementById("reviewContainerId").innerHTML =
@@ -24,7 +23,6 @@ class ReviewDvd {
       document.getElementById("posterId").innerHTML = `
       <img src="/${movie.image_path}" width='350' alt="">`;
     }
-    console.log(movie);
     let setValue = (id, value) =>
       (document.getElementById(id).innerText = value);
     setValue("title", movie.title);

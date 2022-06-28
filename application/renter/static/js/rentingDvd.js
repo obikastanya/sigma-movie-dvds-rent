@@ -15,7 +15,6 @@ class RentingDvd {
       document.getElementById("posterId").innerHTML = `
       <img src="/${movie.image_path}" width='350' alt="">`;
     }
-    console.log(movie);
     let setValue = (id, value) =>
       (document.getElementById(id).innerText = value);
     setValue("title", movie.title);

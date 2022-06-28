@@ -8,7 +8,6 @@ class Register {
       alert("Please complete the form");
       return;
     }
-    console.log(parameter.password);
 
     if (parameter.password !== parameter.confirmPassword) {
       alert("Password unmatch");
@@ -23,7 +22,6 @@ class Register {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         alert(response.message);
         if (response.status) {
           let redirect = (window.location.href = "/login");
