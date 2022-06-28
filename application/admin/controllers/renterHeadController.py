@@ -29,7 +29,7 @@ class RenterHeadController:
             db.session.commit()
             resp=Resp.withoutData(status=True, message='Alert has been sended')
         except:
-            resp=Resp.withoutData(status=True, message='Alert failed')    
+            resp=Resp.withoutData(message='Alert failed')    
         return resp
             
     

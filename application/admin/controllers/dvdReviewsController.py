@@ -31,7 +31,7 @@ class DvdReviewController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Review has been deleted')
         except:
-            return Resp.withoutData(status=True, message='Delete Failed')
+            return Resp.withoutData(message='Delete Failed')
 
 
 class ParameterHandler:

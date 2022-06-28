@@ -39,7 +39,7 @@ class UserController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Banned success')
         except:
-            return Resp.withoutData(status=True, message='Failed to Ban')
+            return Resp.withoutData(message='Failed to Ban')
 
 
     def releaseUserBan():
@@ -60,7 +60,7 @@ class UserController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Release success')
         except:
-            return Resp.withoutData(status=True, message='Failed to Release User Ban')
+            return Resp.withoutData(message='Failed to Release User Ban')
 
 
     def getFilter():

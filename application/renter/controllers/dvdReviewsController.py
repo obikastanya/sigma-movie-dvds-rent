@@ -29,7 +29,7 @@ class DvdReviewController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Review has been submitted')
         except:
-            return Resp.withoutData(status=True, message='Failed to submit review')
+            return Resp.withoutData(message='Failed to submit review')
 
     
     

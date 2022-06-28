@@ -19,7 +19,7 @@ class RegisterController:
             db.session.commit()
             return Resp.withoutData(status=True, message='User succesfully registered')
         except:
-            return Resp.withoutData(status=True, message='Register Failed')
+            return Resp.withoutData(message='Register Failed')
 
 class ParameterHandler:
     def getInsertParameter():

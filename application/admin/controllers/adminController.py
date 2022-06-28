@@ -38,7 +38,7 @@ class AdminController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Admin succesfully added')
         except:
-            return Resp.withoutData(status=True, message='Insert Failed')
+            return Resp.withoutData( message='Insert Failed')
 
     def seedAdmin():
         try:
@@ -48,7 +48,7 @@ class AdminController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Admin succesfully added')
         except:
-            return Resp.withoutData(status=True, message='Insert failed or data already exist')
+            return Resp.withoutData(message='Insert failed or data already exist')
 
     def updateAdmin():
         try:
@@ -67,7 +67,7 @@ class AdminController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Admin succesfully updated')
         except:
-            return Resp.withoutData(status=True, message='Update Failed')
+            return Resp.withoutData( message='Update Failed')
 
 
     def softDeleteAdmin():
@@ -83,7 +83,7 @@ class AdminController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Admin succesfully deactived')
         except:
-            return Resp.withoutData(status=True, message='Failed to deactive admin')
+            return Resp.withoutData(message='Failed to deactive admin')
     
     def getFilter():
         parameter={'email':request.args.get('email'),'name':request.args.get('name'),}

@@ -40,7 +40,7 @@ class MovieDvdsController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Movie succesfully added')
         except:
-            return Resp.withoutData(status=True, message='Insert Failed')
+            return Resp.withoutData(message='Insert Failed')
 
 
     def updateMovieDvd():
@@ -67,7 +67,7 @@ class MovieDvdsController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Movie succesfully updated')
         except:
-            return Resp.withoutData(status=True, message='Update Failed')
+            return Resp.withoutData(message='Update Failed')
 
 
     def softDeleteMovieDvd():
@@ -83,7 +83,7 @@ class MovieDvdsController:
             db.session.commit()
             return Resp.withoutData(status=True, message='Movie succesfully deleted')
         except:
-            return Resp.withoutData(status=True, message='Delete Failed')
+            return Resp.withoutData( message='Delete Failed')
     
     def uploadImage():
         try:
