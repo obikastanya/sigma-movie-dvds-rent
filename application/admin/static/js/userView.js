@@ -89,7 +89,7 @@ class DatatabaleComponent {
               return null;
             }
           };
-          data.id = getDataFromFields("#userEmail");
+          data.email = getDataFromFields("#userEmail");
           data.name = getDataFromFields("#userName");
         },
       },
@@ -101,7 +101,13 @@ class DatatabaleComponent {
         { data: "id" },
         { data: "name" },
         { data: "email" },
-        { data: "gender" },
+        {
+          data: "gender",
+          render: (data) => {
+            if (data == "L") return "Male";
+            return "Female";
+          },
+        },
         { data: "birth_date" },
         { data: "address" },
         {
