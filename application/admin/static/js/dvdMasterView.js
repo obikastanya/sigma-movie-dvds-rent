@@ -17,13 +17,15 @@ class TableAction {
         let onAirStatus = movie.on_air_status == "Y" ? true : false;
         setValue("idFieldUpd", movie.id);
         setValue("ageFieldUpd", movie.age_certification);
-        setValue("totalDvdFieldUpd", movie.available_stock);
+        setValue("totalDvdFieldUpd", movie.total_dvds);
         setValue("descFieldUpd", movie.desc);
         setValue("genreFieldUpd", movie.genre);
         setValue("releaseDateFieldUpd", movie.release_date);
         setValue("titleFieldUpd", movie.title);
         setValue("totalDvdFieldUpd", movie.total_dvds);
         setValue("priceFieldUpd", movie.price);
+        setValue("availableFieldUpd", movie.available_stock);
+        setValue("posterPathFieldUpd", movie.image_path);
         document.getElementById("onAirStatusFieldUpd").checked = onAirStatus;
         document.getElementById("updateImgPreview").innerHTML = `
         <img src='/${movie.image_path}' alt="Poster" width="200" />`;
@@ -63,7 +65,6 @@ class TableAction {
       .addEventListener("click", new ApiAction().updateData);
   }
 }
-
 class ApiAction {
   constructor() {
     this.saveData = this.saveData.bind(this);
@@ -109,7 +110,7 @@ class ApiAction {
       active_status: "Y",
       id: getValue("idFieldUpd"),
       age_certification: getValue("ageFieldUpd"),
-      available_stock: getValue("totalDvdFieldUpd"),
+      available_stock: getValue("availableFieldUpd"),
       desc: getValue("descFieldUpd"),
       genre: getValue("genreFieldUpd"),
       image_path: getValue("posterPathFieldUpd"),
