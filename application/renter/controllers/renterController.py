@@ -12,7 +12,20 @@ from app import db
 class RenterController:
     def rentDvd():
         try:
+            
             parameter=ParameterHandler.getInsertRentingParam()
+            movie=MovieDvds.query.filter_by(mvd_id=parameter.get('detail',{}).get('mrtd_mvd_id')).first()
+            if not movie:
+                return Resp.make('Movie is not found')
+
+            if movie.mvd_available_stock<1:
+                return Resp.make('Movie DVD is out of stock')
+            
+            rentOnDue=QueryModel.getRentOnDue(parameter.get('head',{}).get('mrth_msu_id'))
+            
+            if rentOnDue:
+                return Resp.make('Your last renting is on due. Please return the dvd before renting another one.')
+
             newRenterHead=MovieRenterHead(**parameter.get('head'))
             db.session.add(newRenterHead)
             db.session.flush()
@@ -63,7 +76,6 @@ class RenterController:
     
     def getRentHistory():
         userId=request.json.get("userId")
-        print(userId)
         data=QueryModel.getRentHistory({'id':userId})
         jsonData=Resp.map(['id','start_date','due_date', 'shipping_destination','movie_id', 'title'],data)
         resp=Resp.make(data=jsonData,status=True)
@@ -101,3 +113,13 @@ class QueryModel:
         -- and mrth_msu_id=:id
         """
         return db.session.execute(query, parameter)
+    
+    def getRentOnDue(id):
+        
+        query="""
+            select 1 from movie_renter_head left join movie_returned_head
+            on mrh_mrth_id=mrth_id
+            where mrth_rent_due_date <= now()
+            and mrh_mrth_id is null 
+            and mrth_msu_id=:id limit 1"""
+        return db.session.execute(query, {'id':id}).first()
