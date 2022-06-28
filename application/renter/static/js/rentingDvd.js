@@ -4,7 +4,7 @@ class RentingDvd {
   }
   render(event) {
     let id = document.getElementById("hiddenMovieId").value;
-    fetch(`/user/review/dvd-data/${id}`)
+    fetch(`/api/review/movie/${id}`)
       .then((response) => response.json())
       .then((response) => {
         this.setMovieDetail(response.movieData);
@@ -39,7 +39,7 @@ class RentingSubmit {
       endDate: document.getElementById("endDateField").value,
       address: document.getElementById("addressField").value,
     };
-    fetch("/user/dvd/rent", {
+    fetch("/api/movie/rent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

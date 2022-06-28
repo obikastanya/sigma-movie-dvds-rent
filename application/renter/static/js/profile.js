@@ -5,7 +5,7 @@ class Profile {
   render(event) {
     let parameter = { userId: document.getElementById("hiddenUserId").value };
 
-    fetch("/user/index", {
+    fetch("/api/user/index", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -60,7 +60,7 @@ class Profile {
       alert("New Password unmatch");
       return;
     }
-    fetch("/user/index", {
+    fetch("/api/user/index", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -3,7 +3,7 @@ class StoreDvd {
     this.render = this.render.bind(this);
   }
   render(event) {
-    fetch("/user/dvd")
+    fetch("/api/movies")
       .then((response) => response.json())
       .then((response) => {
         if (response.data) {

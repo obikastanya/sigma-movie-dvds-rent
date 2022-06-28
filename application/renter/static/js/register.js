@@ -14,7 +14,7 @@ class Register {
       alert("Password unmatch");
       return;
     }
-    fetch("/register", {
+    fetch("/api/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

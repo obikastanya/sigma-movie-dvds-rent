@@ -5,7 +5,7 @@ class Notif {
   render(event) {
     let parameter = { userId: document.getElementById("hiddenUserId").value };
 
-    fetch("/alert", {
+    fetch("/api/alert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -84,73 +84,84 @@ def logout(**kwargs):
 def cekLogin():
     return LoginController().login()
 
-@user_bp.post('/register')
+@user_bp.post('/api/register')
 def registerUser(**kwargs):
     return RegisterController.insertUser()
 
-@user_bp.get('/user/dvd')
+
+# ---------- user
+@user_bp.get('/api/movies')
+@auth.loginRequiredApi
 def getDvds():
     return MovieDvdsController.getMovieDvds()
 
-@user_bp.get('/user/dvd/<id>/')
-def getDvd(id):
-    return MovieDvdsController.getMovieDvd(id)
 
-@user_bp.get('/user/review/dvd-data/<id>')
-# @auth.loginRequiredApi
+@user_bp.post('/api/review/movie')
+@auth.loginRequiredApi
+def insertReview(**kwargs):
+    return DvdReviewController.insertReview()
+
+
+@user_bp.get('/api/review/movie/<id>')
+@auth.loginRequiredApi
 def reviewPage(**kwargs):
     id=kwargs.get('id')
     return DvdReviewController.getDvdReviews(id)
 
-
-@user_bp.post('/user/review/dvd-data')
-# @auth.loginRequiredApi
-def insertReview(**kwargs):
-    return DvdReviewController.insertReview()
-
-@user_bp.post('/user/dvd/rent')
-# @auth.loginRequiredApi
+# ------------ movie renting
+@user_bp.post('/api/movie/rent')
+@auth.loginRequiredApi
 def rentDvd(**kwargs):
     return RenterController.rentDvd()
 
 
-@user_bp.post('/user/dvd/rent/history')
-# @auth.loginRequiredApi
+@user_bp.post('/api/movie/rent/history')
+@auth.loginRequiredApi
 def rentDvdHistory(**kwargs):
     return RenterController.getRentHistory()
 
 
-@user_bp.post('/alert')
-# @auth.loginRequiredApi
+# -------------notif/alert
+
+@user_bp.post('/api/alert')
+@auth.loginRequiredApi
 def getAlert(**kwargs):
     return AlertController.getAlerts()
 
-@user_bp.post('/alert/count')
-# @auth.loginRequiredApi
+@user_bp.post('/api/alert/count')
+@auth.loginRequiredApi
 def getAlertCount(**kwargs):
     return AlertController.getAlertCount()
 
+# ---------- invoices
 
-@user_bp.post('/user/dvd/rent/invoices')
-# @auth.loginRequiredApi
+@user_bp.post('/api/rent/invoice')
+@auth.loginRequiredApi
 def getInvoice(**kwargs):
     return InvoiceController.getInvoice()
 
-@user_bp.post('/user/payment/upload')
+@user_bp.post('/api/invoice/upload')
+@auth.loginRequiredApi
 def uploadPayment():
     return InvoiceController.uploadImage()
 
-@user_bp.post('/user/index')
+
+@user_bp.post('/api/invoice/validate')
+@auth.loginRequiredApi
+def validatePayment():
+    return InvoiceController.validatePayment()
+
+
+# ---------- user
+@user_bp.post('/api/user/index')
+@auth.loginRequiredApi
 def getUser():
     return UserController.getUser()
 
-@user_bp.put('/user/index')
+@user_bp.put('/api/user/index')
+@auth.loginRequiredApi
 def updateUser():
     return UserController.updateUser()
 
-
-@user_bp.post('/user/payment/validate')
-def validatePayment():
-    return InvoiceController.validatePayment()
 
 

@@ -4,7 +4,7 @@ class ReviewDvd {
   }
   render(event) {
     let id = document.getElementById("hiddenMovieId").value;
-    fetch(`/user/review/dvd-data/${id}`)
+    fetch(`/api/review/movie/${id}`)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
@@ -62,7 +62,7 @@ class ReviewSubmit {
       desc: document.getElementById("reviewField").value,
       rate: document.querySelector('input[name="rate"]:checked').value,
     };
-    fetch("/user/review/dvd-data", {
+    fetch("/api/review/movie", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

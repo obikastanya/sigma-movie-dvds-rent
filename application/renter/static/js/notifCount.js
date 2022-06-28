@@ -3,7 +3,7 @@ class NotifNumber {
     let parameter = {
       userId: document.getElementById("notifUserId").value,
     };
-    fetch("/alert/count", {
+    fetch("/api/alert/count", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

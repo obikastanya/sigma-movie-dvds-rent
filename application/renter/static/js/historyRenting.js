@@ -1,7 +1,7 @@
 class HistoryRent {
   render() {
     let parameter = { userId: document.getElementById("hiddenUserId").value };
-    fetch("/user/dvd/rent/history", {
+    fetch("/api/movie/rent/history", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ class PaymentValidate {
     let parameter = {
       invoiceId: document.getElementById("invoiceIdField").value,
     };
-    fetch("/user/dvd/rent/invoices", {
+    fetch("/api/rent/invoice", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ class PaymentValidate {
     this.uploadFile(selectedFile).then((response) => {
       if (response.status) {
         parameter.paymentImagePath = response.data[0].filename;
-        fetch("/user/payment/validate", {
+        fetch("/api/invoice/validate", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -90,7 +90,7 @@ class PaymentValidate {
   async uploadFile(file) {
     let formData = new FormData();
     formData.append("file", file);
-    return await fetch("/user/payment/upload", {
+    return await fetch("/api/invoice/upload", {
       method: "POST",
       body: formData,
     }).then((response) => response.json());
