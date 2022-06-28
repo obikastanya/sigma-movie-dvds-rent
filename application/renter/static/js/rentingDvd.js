@@ -61,7 +61,7 @@ class RentingSubmit {
           <p>Bank Account  : ${invoices.bank}</p>
           <p>Pay before ${invoices.payment_due}</p>
           <p>*Keep your invoices id, you gonna need it for payment validation.</p>
-          <p><a href="">Validate your payment here.</a> </p>
+          <p><a href="/history">Validate your payment here.</a> </p>
         `;
     document.getElementById("invoicesNote").innerHTML = invoicesTemplate;
   }

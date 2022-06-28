@@ -19,7 +19,7 @@ class InvoiceController:
         try:
             file = request.files['file']
             file.save(os.path.join('static/file_storage/payment', secure_filename(file.filename)))
-            return Resp.make(status=True, message='Upload Success', data=[{'filename':'static/file_storage/payment/'+file.filename}])
+            return Resp.make(status=True, message='Upload Success', data=[{'filename':'static/file_storage/payment/'+secure_filename(file.filename)}])
         except:
             return Resp.make(message='Upload fail')
 
