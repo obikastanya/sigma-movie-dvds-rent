@@ -5,6 +5,8 @@ from werkzeug.utils import secure_filename
 from lib.response import Resp
 from app import db
 from orm.renterInvoices import RenterInvoices, RenterInvoicesFullSchema
+from orm.movieRenterHead import MovieRenterHead
+from orm.alert import Alert
 
 
 class InvoiceController:
@@ -16,11 +18,23 @@ class InvoiceController:
         return resp
     
     def validatePayment():
-        try:
+        # try:
             invoiceId=request.json.get('id')
             invoice=RenterInvoices.query.filter_by(ri_id=invoiceId).first()
             invoice.ri_transaction_validation_date=date.today()
+
+            headTransaction=MovieRenterHead.query.filter_by(mrth_id=invoice.ri_mrth_id).first()
+            alertParameter={
+                'al_msu_id':headTransaction.mrth_msu_id,
+                'al_desc':'Your payment (invoice id: '+invoiceId+') has been validated by admin. We will send the dvd to your place.',
+                'al_read_status':'N',
+                'al_title':'Payment Validated'
+                }
+            newAlert=Alert(**alertParameter)
+            db.session.add(newAlert)
+
             db.session.commit()
             return Resp.make(status=True, message='Payment receipt has been validated')
-        except:
-            return Resp.make(message='Validate failed')
+        # except:
+        #     return Resp.make(message='Validate failed')
+
