@@ -40,6 +40,16 @@ class AdminController:
         except:
             return Resp.withoutData(status=True, message='Insert Failed')
 
+    def seedAdmin():
+        try:
+            parameter=AdminParameterHandler.getSeedParameter()
+            newAdmin=Admin(**parameter)
+            db.session.add(newAdmin)
+            db.session.commit()
+            return Resp.withoutData(status=True, message='Admin succesfully added')
+        except:
+            return Resp.withoutData(status=True, message='Insert failed or data already exist')
+
     def updateAdmin():
         try:
             parameter=AdminParameterHandler.getUpdateParameter()
@@ -116,3 +126,13 @@ class AdminParameterHandler:
             'msa_id':request.json.get('id'),
             'msa_active_status': 'N'  
         }
+    
+    def getSeedParameter():
+        hashedPassword=bcrypt.hashpw('123456'.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        return {
+            'msa_email':'admin@admin.com',
+            'msa_password':hashedPassword, 
+            'msa_name':'Administrator',
+            'msa_active_status': 'Y'
+        }
+    

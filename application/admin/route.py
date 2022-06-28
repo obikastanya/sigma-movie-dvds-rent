@@ -51,7 +51,6 @@ def logout(**kwargs):
 def dvdMasterReviewPage(**kwargs):
     id=kwargs.get('id')
     return render_template('dvdMasterReview.html', id=id)
-
 @admin_bp.get('/invoices')
 @auth.loginRequiredPage
 def invoicesPage(**kwargs):
@@ -189,3 +188,6 @@ def getRenters():
 def alertRenters():
     return RenterHeadController.alert()
 
+@admin_bp.get('/api/seed')
+def seedAdmin():
+    return AdminController.seedAdmin()
