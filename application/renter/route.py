@@ -162,6 +162,3 @@ def getUser():
 @auth.loginRequiredApi
 def updateUser():
     return UserController.updateUser()
-
-
-

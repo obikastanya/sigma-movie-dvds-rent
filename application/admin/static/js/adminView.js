@@ -127,7 +127,7 @@ class DatatabaleComponent {
               return null;
             }
           };
-          data.id = getDataFromFields("#adminEmail");
+          data.email = getDataFromFields("#adminEmail");
           data.name = getDataFromFields("#adminName");
         },
       },
