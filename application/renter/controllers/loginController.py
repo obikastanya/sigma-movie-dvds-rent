@@ -12,31 +12,35 @@ def pullNotif():
 
 class LoginController:
     def login(self):
-        # try:
-        userLogin=dict(request.form)
-        user=User.query.filter_by(msu_email=userLogin.get('email')).first()
-        # default error message
-        
-        if not user:
+        try:
+            userLogin=dict(request.form)
+            user=User.query.filter_by(msu_email=userLogin.get('email')).first()
+            # default error message
+            
+            if not user:
+                session['message']='Incorrect email or password'
+                return redirect(url_for('user_bp.loginPage')) 
+            
+            userOnBan=UserOnBan.query.filter(UserOnBan.uob_msu_id== user.msu_id, UserOnBan.uob_release_date==None).first()
+
+            if  bcrypt.checkpw(userLogin.get('password').encode('utf-8'), user.msu_password.encode('utf-8')):
+                # success login
+                if userOnBan:
+                    session['message']='You are banned from this site. Please contact the administrator to restore the account.'
+                    return redirect(url_for('user_bp.loginPage'))
+
+                self.createSession(user)
+                return redirect(url_for('user_bp.homePage')) 
+
             session['message']='Incorrect email or password'
+            return redirect(url_for('user_bp.loginPage'))       
+        except:
+            session['message']='Login Failed'
             return redirect(url_for('user_bp.loginPage')) 
-        
-        userOnBan=UserOnBan.query.filter(UserOnBan.uob_msu_id== user.msu_id, UserOnBan.uob_release_date==None).first()
 
-        if  bcrypt.checkpw(userLogin.get('password').encode('utf-8'), user.msu_password.encode('utf-8')):
-            # success login
-            if userOnBan:
-                session['message']='You are banned from this site. Please contact the administrator to restore the account.'
-                return redirect(url_for('user_bp.loginPage'))
-
-            self.createSession(user)
-            return redirect(url_for('user_bp.homePage')) 
-
-        session['message']='Incorrect email or password'
-        return redirect(url_for('user_bp.loginPage'))       
-        # except:
-        #     session['message']='Login Failed'
-        #     return redirect(url_for('user_bp.loginPage')) 
+    def logout(self):
+        session.pop('user_id', None)
+        session.pop('user_name',None)
             
     def createSession(self,user):
         session['user_id']=user.msu_id

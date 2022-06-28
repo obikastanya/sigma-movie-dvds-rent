@@ -17,7 +17,14 @@ user_bp=Blueprint(
 
 auth=LoginController()
 
-# route
+# route -> returning html
+
+
+@user_bp.get('/register')
+@auth.noSessionRequiredPage
+def registerPage(**kwargs):
+    return render_template('registerUser.html')
+
 @user_bp.get('/login')
 @auth.noSessionRequiredPage
 def loginPage(**kwargs):
@@ -31,18 +38,13 @@ def homePage(**kwargs):
     return render_template('movieDashboard.html')
 
 
-@user_bp.get('/register')
-@auth.noSessionRequiredPage
-def registerPage(**kwargs):
-    return render_template('registerUser.html')
-
 @user_bp.get('/notification')
-# @auth.noSessionRequiredPage
+@auth.loginRequiredPage
 def notifPage(**kwargs):
     return render_template('notif.html')
 
 
-@user_bp.get('/review/dvd/<id>/')
+@user_bp.get('/review/<id>/')
 @auth.loginRequiredPage
 def reviewDvd(**kwargs):
     id=kwargs.get('id')
@@ -55,15 +57,13 @@ def rentDvdHistoryPage(**kwargs):
     id=kwargs.get('id')
     return render_template('rentingHistory.html', id=id)
 
-
 @user_bp.get('/profile')
 @auth.loginRequiredPage
 def profilePage(**kwargs):
     return render_template('profile.html')
 
 
-
-@user_bp.get('/dvd/rent/<id>/')
+@user_bp.get('/rent/<id>/')
 @auth.loginRequiredPage
 def rentingMovieDvd(**kwargs):
     id=kwargs.get('id')
@@ -73,10 +73,13 @@ def rentingMovieDvd(**kwargs):
 @user_bp.get('/logout')
 @auth.loginRequiredPage
 def logout(**kwargs):
-    session.clear()
+    auth.logout()
     return redirect(url_for('user_bp.loginPage'))
 
-# api 
+
+
+
+# ------- api 
 @user_bp.post('/login')
 def cekLogin():
     return LoginController().login()

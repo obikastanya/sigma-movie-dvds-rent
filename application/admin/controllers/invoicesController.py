@@ -18,7 +18,7 @@ class InvoiceController:
         return resp
     
     def validatePayment():
-        # try:
+        try:
             invoiceId=request.json.get('id')
             invoice=RenterInvoices.query.filter_by(ri_id=invoiceId).first()
             invoice.ri_transaction_validation_date=date.today()
@@ -35,6 +35,6 @@ class InvoiceController:
 
             db.session.commit()
             return Resp.make(status=True, message='Payment receipt has been validated')
-        # except:
-        #     return Resp.make(message='Validate failed')
+        except:
+            return Resp.make(message='Validate failed')
 
