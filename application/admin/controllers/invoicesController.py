@@ -22,6 +22,7 @@ class InvoiceController:
             invoiceId=request.json.get('id')
             invoice=RenterInvoices.query.filter_by(ri_id=invoiceId).first()
             invoice.ri_transaction_validation_date=date.today()
+            invoice.ri_status_bayar='Y'
 
             headTransaction=MovieRenterHead.query.filter_by(mrth_id=invoice.ri_mrth_id).first()
             alertParameter={
