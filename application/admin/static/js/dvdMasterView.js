@@ -9,13 +9,12 @@ class TableAction {
     fetch("/admin/api/movie/" + idMovie)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         let movie = response.data[0];
         let setValue = (id, value) => {
           let element = document.getElementById(id);
-          console.log(element);
           element.value = value;
         };
+        let onAirStatus = movie.on_air_status == "Y" ? true : false;
         setValue("idFieldUpd", movie.id);
         setValue("ageFieldUpd", movie.age_certification);
         setValue("totalDvdFieldUpd", movie.available_stock);
@@ -24,6 +23,8 @@ class TableAction {
         setValue("releaseDateFieldUpd", movie.release_date);
         setValue("titleFieldUpd", movie.title);
         setValue("totalDvdFieldUpd", movie.total_dvds);
+        setValue("priceFieldUpd", movie.price);
+        document.getElementById("onAirStatusFieldUpd").checked = onAirStatus;
         document.getElementById("updateImgPreview").innerHTML = `
         <img src='/${movie.image_path}' alt="Poster" width="200" />`;
         $("#id_modal_for_edit").modal("show");
@@ -70,6 +71,9 @@ class ApiAction {
   }
   saveData() {
     let getValue = (id) => document.getElementById(id).value;
+    let onAirStatus = document.getElementById("onAirStatusField").checked
+      ? "Y"
+      : "N";
     let parameter = {
       active_status: "Y",
       age_certification: getValue("ageField"),
@@ -81,7 +85,7 @@ class ApiAction {
       title: getValue("titleField"),
       total_dvds: getValue("totalDvdField"),
       price: getValue("priceField"),
-      on_air_status: getValue("onAirStatusField") ? "Y" : "N",
+      on_air_status: onAirStatus,
     };
     const selectedFile = document.getElementById("posterField").files[0];
     if (!selectedFile) {
@@ -98,6 +102,9 @@ class ApiAction {
   }
   updateData() {
     let getValue = (id) => document.getElementById(id).value;
+    let onAirStatus = document.getElementById("onAirStatusFieldUpd").checked
+      ? "Y"
+      : "N";
     let parameter = {
       active_status: "Y",
       id: getValue("idFieldUpd"),
@@ -109,6 +116,8 @@ class ApiAction {
       release_date: getValue("releaseDateFieldUpd"),
       title: getValue("titleFieldUpd"),
       total_dvds: getValue("totalDvdFieldUpd"),
+      price: getValue("priceFieldUpd"),
+      on_air_status: onAirStatus,
     };
     const selectedFile = document.getElementById("posterFieldUpd").files[0];
     if (selectedFile) {

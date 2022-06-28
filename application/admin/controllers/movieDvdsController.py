@@ -62,6 +62,8 @@ class MovieDvdsController:
             movie.mvd_available_stock =parameter.get('mvd_available_stock')
             movie.mvd_image_path =parameter.get('mvd_image_path')
             movie.mvd_active_status =parameter.get('mvd_active_status')
+            movie.mvd_price =parameter.get('mvd_price')
+            movie.mvd_on_air_status =parameter.get('mvd_on_air_status')
             db.session.commit()
             return Resp.withoutData(status=True, message='Movie succesfully updated')
         except:
@@ -130,7 +132,10 @@ class MovieDvdsParameterHandler:
         'mvd_total_dvds':rawData.get('total_dvds'),
         'mvd_available_stock':rawData.get('available_stock'),
         'mvd_image_path':rawData.get('image_path'),
-        'mvd_active_status':rawData.get('active_status')
+        'mvd_active_status':rawData.get('active_status'),
+        'mvd_price':rawData.get('price'),
+        'mvd_on_air_status':rawData.get('on_air_status'),
+        
         }
     
     def getDeleteParameter():
