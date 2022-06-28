@@ -32,6 +32,21 @@ class TableAction {
         $("#id_modal_for_edit").modal("show");
       });
   }
+  setEmptyForm() {
+    let setValue = (id, value) => {
+      let element = document.getElementById(id);
+      element.value = "";
+    };
+    setValue("ageField");
+    setValue("totalDvdField");
+    setValue("descField");
+    setValue("genreField");
+    setValue("releaseDateField");
+    setValue("titleField");
+    setValue("totalDvdField");
+    setValue("priceField");
+    document.getElementById("onAirStatusField").checked = false;
+  }
 
   deleteData(event) {
     let idMovie = event.target.getAttribute("data-id");
@@ -81,13 +96,20 @@ class ApiAction {
       available_stock: getValue("totalDvdField"),
       desc: getValue("descField"),
       genre: getValue("genreField"),
-      image_path: "/",
+      image_path: "",
       release_date: getValue("releaseDateField"),
       title: getValue("titleField"),
       total_dvds: getValue("totalDvdField"),
       price: getValue("priceField"),
       on_air_status: onAirStatus,
     };
+    for (let [key, value] of Object.entries(parameter)) {
+      if (key == "image_path") continue;
+      if ([null, undefined, ""].includes(value)) {
+        alert("Please Complete the form");
+        return;
+      }
+    }
     const selectedFile = document.getElementById("posterField").files[0];
     if (!selectedFile) {
       alert("No image found");
@@ -120,6 +142,14 @@ class ApiAction {
       price: getValue("priceFieldUpd"),
       on_air_status: onAirStatus,
     };
+
+    for (let [key, value] of Object.entries(parameter)) {
+      if (["image_path"].includes(key)) continue;
+      if ([null, undefined, ""].includes(value)) {
+        alert("Please Complete the form");
+        return;
+      }
+    }
     const selectedFile = document.getElementById("posterFieldUpd").files[0];
     if (selectedFile) {
       this.uploadUpdateFile(selectedFile).then((response) => {
@@ -147,6 +177,10 @@ class ApiAction {
       .then((response) => {
         $("#movie_dvd_datatable_id").DataTable().ajax.reload();
         alert(response.message);
+        if (response.status) {
+          new TableAction().setEmptyForm();
+          document.getElementById("new_data_save_close_button_id").click();
+        }
       });
   }
   async uploadFile(file) {
@@ -169,6 +203,9 @@ class ApiAction {
       .then((response) => {
         $("#movie_dvd_datatable_id").DataTable().ajax.reload();
         alert(response.message);
+        if (response.status) {
+          document.getElementById("button_save_updated_data_close_id").click();
+        }
       });
   }
   async uploadUpdateFile(file) {
