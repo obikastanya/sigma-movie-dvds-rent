@@ -13,7 +13,7 @@ class LoginController:
     def login(self):
         try:
             adminLogin=dict(request.form)
-            admin=Admin.query.filter_by(msa_email=adminLogin.get('email')).first()
+            admin=Admin.query.filter(Admin.msa_email==adminLogin.get('email'), Admin.msa_active_status=='Y').first()
             # default error message
             if not admin:
                 session['message']='Incorrect email or password'
