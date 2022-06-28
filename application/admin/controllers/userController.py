@@ -37,7 +37,7 @@ class UserController:
             newUserOnBann=UserOnBan(**parameter)
             db.session.add(newUserOnBann)
             db.session.commit()
-            return Resp.withoutData(status=True, message='Banned succes')
+            return Resp.withoutData(status=True, message='Banned success')
         except:
             return Resp.withoutData(status=True, message='Failed to Ban')
 
@@ -53,10 +53,12 @@ class UserController:
                 return Resp.withoutData('User is not found')
 
             user.msu_banned_status='R'
-            userOnBann=UserOnBan.query.filter(UserOnBan.uob_msu_id==parameter.get('oub_msu_id'), UserOnBan.uob_release_date is None )
+    
+            userOnBann=UserOnBan.query.filter(UserOnBan.uob_msu_id==parameter.get('uob_msu_id'), UserOnBan.uob_release_date == None ).first()
+
             userOnBann.uob_release_date=datetime.datetime.now()
             db.session.commit()
-            return Resp.withoutData(status=True, message='Release succes')
+            return Resp.withoutData(status=True, message='Release success')
         except:
             return Resp.withoutData(status=True, message='Failed to Release User Ban')
 
