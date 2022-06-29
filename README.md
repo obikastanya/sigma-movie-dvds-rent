@@ -116,6 +116,11 @@ Untuk melakukan installasi, jalankan Comand:
 
 > Jika ingin melakukan perubahan configurasi, ubah pada file config.py
 
+Lakukan migrasi database dengan menjalankan command berikut:
+
+    flask db init
+    flask db migrate
+
 ## Run the program
 
 Untuk menjalankan program, jalankan command berikut
@@ -142,6 +147,14 @@ Menu admin hanya dapat dibuka oleh admin, oleh karena itu perlu menjalankan seed
 
     email: admin@admin.com
     password: 123456
+
+Menu admin dapat diakses pada :
+
+> localhost:8887/admin
+
+Menu user dapat diakses pada:
+
+> localhost:8887/
 
 # API
 
